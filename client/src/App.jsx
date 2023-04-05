@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { ErrorPage, Login, Register, Home, Post } from "./Pages";
+import { ErrorPage, Login, Register, Home, Post } from "./pages";
 import { Navbar, Footer } from "./components";
 import "./App.css";
 const router = createBrowserRouter([

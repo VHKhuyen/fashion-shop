@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-// import { AuthContext } from "../context/authContext";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLogin } from "../redux/authSlide";
+import { authSelector } from "../redux/selector";
 const Login = () => {
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
   });
-  const [err, setError] = useState(null);
-
+  const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
+  const { authLoading, isAuthenticated, msg } = auth;
   const navigate = useNavigate();
-
-  //   const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -20,12 +19,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/api/v1/auth/login", inputs);
-      navigate("/");
-    } catch (err) {
-      setError(err.response.data);
-    }
+    dispatch(fetchLogin(inputs));
   };
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -35,7 +29,10 @@ const Login = () => {
           <p className="mt-4 text-gray-500">Sign in to your account</p>
         </div>
 
-        <form className="mx-auto mt-8 mb-0 max-w-md space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="mx-auto mt-8 mb-0 max-w-md space-y-4"
+        >
           <div>
             <label htmlFor="email" className="sr-only">
               Username
@@ -104,7 +101,7 @@ const Login = () => {
               </span>
             </div>
           </div>
-          {err && <p className="text-red-600">{err}</p>}
+          {msg && <p className="text-red-600">{msg}</p>}
           <div className="flex items-center justify-between">
             <p className="text-center text-sm text-gray-500">
               Don't you have an account?
@@ -114,7 +111,6 @@ const Login = () => {
             </p>
             <button
               type="submit"
-              onClick={handleSubmit}
               className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
             >
               Sign in

@@ -1,6 +1,8 @@
 const db = require("../../db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { createCustomError } = require("../../errors/custom-error");
+
 class AuthController {
   register(req, res) {
     //CHECK EXISTING USER
@@ -24,16 +26,15 @@ class AuthController {
     });
   }
 
-  login = (req, res) => {
+  login = (req, res, next) => {
     //CHECK USER
 
     const q = "SELECT * FROM users WHERE username = ?";
 
     db.query(q, [req.body.username], (err, data) => {
-      if (err) return res.status(500).json(err);
+      if (err) return next(createCustomError(err, 500));
       if (data.length === 0)
-        return res.status(404).json("Wrong username or password!");
-
+        return next(createCustomError("Wrong username or password!", 404));
       //Check password
       const isPasswordCorrect = bcrypt.compareSync(
         req.body.password,
@@ -41,8 +42,7 @@ class AuthController {
       );
 
       if (!isPasswordCorrect)
-        return res.status(400).json("Wrong username or password!");
-
+        return next(createCustomError("Wrong username or password!", 400));
       const token = jwt.sign({ id: data[0].id }, "jwtkey");
       const { password, ...other } = data[0];
 
