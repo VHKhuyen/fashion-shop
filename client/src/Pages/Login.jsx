@@ -20,12 +20,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   await login(inputs)
-    //   navigate("/");
-    // } catch (err) {
-    //   setError(err.response.data);
-    // }
+    try {
+      await axios.post("http://localhost:5000/api/v1/auth/login", inputs);
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data);
+    }
   };
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -35,17 +35,17 @@ const Login = () => {
           <p className="mt-4 text-gray-500">Sign in to your account</p>
         </div>
 
-        <form action="" className="mx-auto mt-8 mb-0 max-w-md space-y-4">
+        <form className="mx-auto mt-8 mb-0 max-w-md space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
-              Email
+              Username
             </label>
             <div className="relative">
               <input
-                type="email"
+                type="text"
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-                placeholder="Enter email"
-                name="email"
+                placeholder="Enter username"
+                name="username"
                 onChange={handleChange}
               />
 
@@ -104,7 +104,7 @@ const Login = () => {
               </span>
             </div>
           </div>
-
+          {err && <p className="text-red-600">{err}</p>}
           <div className="flex items-center justify-between">
             <p className="text-center text-sm text-gray-500">
               Don't you have an account?

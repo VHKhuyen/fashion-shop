@@ -19,10 +19,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/v1/auth/register",
-        inputs
-      );
+      await axios.post("http://localhost:5000/api/v1/auth/register", inputs);
       navigate("/login");
     } catch (err) {
       setError(err.response.data);
@@ -35,7 +32,7 @@ const Register = () => {
         <h1 className="text-2xl font-bold sm:text-3xl">Started Sign up</h1>
       </div>
 
-      <form method="POST" className="mx-auto mt-8 mb-0 max-w-md space-y-4">
+      <form className="mx-auto mt-8 mb-0 max-w-md space-y-4">
         <div>
           <label htmlFor="email" className="sr-only">
             Username

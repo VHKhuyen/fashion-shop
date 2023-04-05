@@ -31,7 +31,8 @@ class AuthController {
 
     db.query(q, [req.body.username], (err, data) => {
       if (err) return res.status(500).json(err);
-      if (data.length === 0) return res.status(404).json("User not found!");
+      if (data.length === 0)
+        return res.status(404).json("Wrong username or password!");
 
       //Check password
       const isPasswordCorrect = bcrypt.compareSync(
