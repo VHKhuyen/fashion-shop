@@ -1,5 +1,7 @@
+import axios from "axios";
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loadUser, loginUser, registerUser } from "../services/authServices";
+import { loadUser, registerUser } from "../services/authServices";
 const statusAuthFromLocalStorage = localStorage.getItem("user") ? true : false;
 const LOCAL_STORAGE_TOKEN_NAME = "user";
 
@@ -26,16 +28,12 @@ const authSlice = createSlice({
         state.authLoading = true;
       })
       .addCase(fetchRegister.fulfilled, (state, action) => {
-        if (action.payload.success) {
-          state.isAuthenticated = true;
-        } else {
-          state.isAuthenticated = false;
-          state.msg = action.payload.msg;
-        }
+        state.isAuthenticated = true;
         state.authLoading = false;
       })
       .addCase(fetchRegister.rejected, (state, action) => {
         state.authLoading = false;
+        state.msg = action.payload.msg;
       })
 
       //loadUser
@@ -43,11 +41,7 @@ const authSlice = createSlice({
         state.authLoading = true;
       })
       .addCase(fetchLoadUser.fulfilled, (state, action) => {
-        if (action.payload.success) {
-          state.isAuthenticated = true;
-        } else {
-          state.isAuthenticated = false;
-        }
+        state.isAuthenticated = true;
         state.authLoading = false;
       })
       .addCase(fetchLoadUser.rejected, (state, action) => {
@@ -59,15 +53,12 @@ const authSlice = createSlice({
         state.authLoading = true;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        if (action.payload.success) {
-          state.isAuthenticated = true;
-        } else {
-          state.isAuthenticated = false;
-          state.msg = action.payload.msg;
-        }
+        console.log(action);
+        state.isAuthenticated = true;
         state.authLoading = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
+        console.log(action);
         state.authLoading = false;
       });
   },
@@ -90,9 +81,16 @@ export const fetchLoadUser = createAsyncThunk(
 
 export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
-  async (valueForm) => {
-    const response = await loginUser(valueForm);
-    return response;
+  async (valueForm, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/auth/login",
+        valueForm
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 

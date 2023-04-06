@@ -176,14 +176,14 @@ const Register = () => {
         <div className="flex items-center justify-between">
           <p className="text-center text-sm text-gray-500">
             Do you have an account?
-            <Link className="underline text-indigo-600" to="/login">
+            <Link className="underline text-primary" to="/login">
               Sign in
             </Link>
           </p>
           <button
             type="submit"
             onClick={handleSubmit}
-            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+            className="inline-block rounded-lg bg-primary hover:bg-primary_hover px-5 py-3 text-sm font-medium text-white"
           >
             Sign up
           </button>

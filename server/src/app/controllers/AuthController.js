@@ -28,9 +28,7 @@ class AuthController {
 
   login = (req, res, next) => {
     //CHECK USER
-
     const q = "SELECT * FROM users WHERE username = ?";
-
     db.query(q, [req.body.username], (err, data) => {
       if (err) return next(createCustomError(err, 500));
       if (data.length === 0)
@@ -51,7 +49,11 @@ class AuthController {
           httpOnly: true,
         })
         .status(200)
-        .json(other);
+        .json({
+          success: true,
+          message: "user login successfully",
+          token,
+        });
     });
   };
 }

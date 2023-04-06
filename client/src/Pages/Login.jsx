@@ -12,12 +12,11 @@ const Login = () => {
   const auth = useSelector(authSelector);
   const { authLoading, isAuthenticated, msg } = auth;
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchLogin(inputs));
   };
@@ -105,16 +104,31 @@ const Login = () => {
           <div className="flex items-center justify-between">
             <p className="text-center text-sm text-gray-500">
               Don't you have an account?
-              <Link className="underline text-indigo-600" to="/register">
+              <Link className="underline text-primary" to="/register">
                 Sign up
               </Link>
             </p>
-            <button
-              type="submit"
-              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-            >
-              Sign in
-            </button>
+            {!authLoading ? (
+              <button
+                type="submit"
+                className="inline-block rounded-lg  bg-primary w-[100px] px-5 py-3 text-sm font-medium text-white hover:bg-primary_hover"
+              >
+                Sign in
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="inline-block rounded-lg bg-primary w-[100px] px-5 py-3 text-sm font-medium "
+              >
+                <svg
+                  className="h-4 w-4 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z" />
+                </svg>
+              </button>
+            )}
           </div>
         </form>
       </div>

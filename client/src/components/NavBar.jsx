@@ -59,18 +59,9 @@ function Navbar() {
             <li>
               <Link
                 className="text-gray-500 transition hover:text-gray-500/75"
-                to="/"
+                to="/cart"
               >
-                Projects
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                className="text-gray-500 transition hover:text-gray-500/75"
-                to="/"
-              >
-                Blog
+                Cart
               </Link>
             </li>
           </ul>
