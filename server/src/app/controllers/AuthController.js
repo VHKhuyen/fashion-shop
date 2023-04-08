@@ -46,7 +46,11 @@ class AuthController {
 
       res
         .cookie("access_token", token, {
+          domain: "127.0.0.1",
           httpOnly: true,
+          sameSite: "none",
+          secure: true,
+          maxAge: 24 * 60 * 60 * 1000,
         })
         .status(200)
         .json({

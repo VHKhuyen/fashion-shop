@@ -59,6 +59,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         console.log(action);
+        state.msg = action.payload.msg;
         state.authLoading = false;
       });
   },
@@ -85,7 +86,10 @@ export const fetchLogin = createAsyncThunk(
     try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/auth/login",
-        valueForm
+        valueForm,
+        {
+          withCredentials: true,
+        }
       );
       return response.data;
     } catch (error) {
