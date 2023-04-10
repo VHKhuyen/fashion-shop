@@ -1,66 +1,34 @@
 import axios from "axios";
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadUser, registerUser } from "../services/authServices";
-const statusAuthFromLocalStorage = localStorage.getItem("user") ? true : false;
-const LOCAL_STORAGE_TOKEN_NAME = "user";
+const currentUser = JSON.parse(localStorage.getItem("user")) || null;
 
 const initialState = {
-  authLoading: false,
-  isAuthenticated: statusAuthFromLocalStorage,
-  msg: "",
+  currentUser,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.isAuthenticated = false;
-      localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
 
       //register
-      .addCase(fetchRegister.pending, (state, action) => {
-        state.authLoading = true;
-      })
       .addCase(fetchRegister.fulfilled, (state, action) => {
         state.isAuthenticated = true;
-        state.authLoading = false;
       })
       .addCase(fetchRegister.rejected, (state, action) => {
-        state.authLoading = false;
         state.msg = action.payload.msg;
-      })
-
-      //loadUser
-      .addCase(fetchLoadUser.pending, (state, action) => {
-        state.authLoading = true;
-      })
-      .addCase(fetchLoadUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.authLoading = false;
-      })
-      .addCase(fetchLoadUser.rejected, (state, action) => {
-        state.authLoading = false;
       })
 
       //login
-      .addCase(fetchLogin.pending, (state, action) => {
-        state.authLoading = true;
-      })
+
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        console.log(action);
-        state.isAuthenticated = true;
-        state.authLoading = false;
+        state.currentUser = action.payload;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        console.log(action);
-        state.msg = action.payload.msg;
-        state.authLoading = false;
+        state.currentUser = null;
       });
   },
 });
@@ -98,6 +66,18 @@ export const fetchLogin = createAsyncThunk(
   }
 );
 
-export const { logout } = authSlice.actions;
+export const logout = async () => {
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/v1/auth/logout",
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
 
 export default authSlice.reducer;

@@ -26,7 +26,7 @@ class AuthController {
     });
   }
 
-  login = (req, res, next) => {
+  login(req, res, next) {
     //CHECK USER
     const q = "SELECT * FROM users WHERE username = ?";
     db.query(q, [req.body.username], (err, data) => {
@@ -46,7 +46,7 @@ class AuthController {
 
       res
         .cookie("access_token", token, {
-          domain: "127.0.0.1",
+          domain: "localhost",
           httpOnly: true,
           sameSite: "none",
           secure: true,
@@ -56,10 +56,24 @@ class AuthController {
         .json({
           success: true,
           message: "user login successfully",
-          token,
+          other,
         });
     });
-  };
+  }
+
+  logout(req, res) {
+    res
+      .clearCookie("access_token", {
+        domain: "localhost",
+        sameSite: "none",
+        secure: true,
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: "User has been logged out!",
+      });
+  }
 }
 
 module.exports = new AuthController();

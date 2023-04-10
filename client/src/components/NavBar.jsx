@@ -1,5 +1,35 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "../redux/selector";
+import toast, { Toaster } from "react-hot-toast";
+import { logout } from "../redux/authSlide";
+
 function Navbar() {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector(authSelector);
+  console.log(currentUser);
+  const handleLogout = async () => {
+    try {
+      const toastId = toast.loading("Waiting...");
+      const result = await dispatch(logout());
+      toast.remove(toastId);
+      if (result.payload?.success) {
+        localStorage.removeItem("user");
+        toast.success(`${result.payload?.message}`, {
+          onClose: setTimeout(() => {
+            navigate("/");
+          }, 1.5 * 1000),
+        });
+      } else if (result.payload?.success == false) {
+        toast.error(`${result.payload?.message}`);
+      } else {
+        toast.error("Something wrong!");
+      }
+    } catch (error) {
+      toast.remove();
+    }
+  };
+
   return (
     <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
       <Link className="block text-primary" to="/">
@@ -66,24 +96,65 @@ function Navbar() {
             </li>
           </ul>
         </nav>
-
+        <Toaster />
         <div className="flex items-center gap-4">
-          <div className="sm:flex sm:gap-4">
-            <Link
-              className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-primary_hover"
-              to="/login"
-            >
-              Login
-            </Link>
+          {currentUser ? (
+            <div className="relative">
+              <img
+                className="inline-block rounded-full ring ring-white w-12 h-12"
+                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              />
 
-            <Link
-              className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-primary/75 sm:block"
-              to="/register"
-            >
-              Register
-            </Link>
-          </div>
+              <div
+                className="hidden absolute right-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
+                role="menu"
+              >
+                <div className="p-2">
+                  <a
+                    href="#"
+                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    role="menuitem"
+                  >
+                    Your profile
+                  </a>
 
+                  <a
+                    href="#"
+                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    role="menuitem"
+                  >
+                    Product
+                  </a>
+                </div>
+
+                <div className="p-2">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                    role="menuitem"
+                  >
+                    Log out
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="sm:flex sm:gap-4">
+              <Link
+                className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-primary_hover"
+                to="/login"
+              >
+                Login
+              </Link>
+
+              <Link
+                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-primary/75 sm:block"
+                to="/register"
+              >
+                Register
+              </Link>
+            </div>
+          )}
           <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
             <span className="sr-only">Toggle menu</span>
             <svg
