@@ -1,7 +1,7 @@
 const db = require("../../db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { createCustomError } = require("../../errors/custom-error");
+const { createErrorHandler } = require("../../middleware/error-handler");
 
 class AuthController {
   register(req, res) {

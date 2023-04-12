@@ -53,7 +53,7 @@ export const fetchLogin = createAsyncThunk(
   async (valueForm, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
+        "http://localhost:8000/api/v1/auth/login",
         valueForm,
         {
           withCredentials: true,
@@ -69,7 +69,7 @@ export const fetchLogin = createAsyncThunk(
 export const logout = async () => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/v1/auth/logout",
+      "http://localhost:8000/api/v1/auth/logout",
       {
         withCredentials: true,
       }

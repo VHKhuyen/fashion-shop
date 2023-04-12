@@ -14,7 +14,7 @@ const loadUser = async () => {
 const registerUser = async (userForm) => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/v1/auth/register",
+      "http://localhost:8000/api/v1/auth/register",
       userForm
     );
     return response.data;
