@@ -1,4 +1,4 @@
-const db = require("../../db");
+const db = require("../../config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createErrorHandler } = require("../../middleware/error-handler");
@@ -30,9 +30,9 @@ class AuthController {
     //CHECK USER
     const q = "SELECT * FROM users WHERE username = ?";
     db.query(q, [req.body.username], (err, data) => {
-      if (err) return next(createCustomError(err, 500));
+      if (err) return next(createErrorHandler(err, 500));
       if (data.length === 0)
-        return next(createCustomError("Wrong username or password!", 404));
+        return next(createErrorHandler("Wrong username or password!", 404));
       //Check password
       const isPasswordCorrect = bcrypt.compareSync(
         req.body.password,
@@ -40,7 +40,7 @@ class AuthController {
       );
 
       if (!isPasswordCorrect)
-        return next(createCustomError("Wrong username or password!", 400));
+        return next(createErrorHandler("Wrong username or password!", 400));
       const token = jwt.sign({ id: data[0].id }, "jwtkey");
       const { password, ...other } = data[0];
 
