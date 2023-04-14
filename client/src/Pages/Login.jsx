@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const dispatch = useDispatch();
@@ -52,14 +52,14 @@ const Login = () => {
       >
         <div>
           <label htmlFor="email" className="sr-only">
-            Username
+            Email
           </label>
           <div className="relative">
             <input
               type="text"
               className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-              placeholder="Enter username"
-              name="username"
+              placeholder="Enter email"
+              name="email"
               onChange={handleChange}
             />
 

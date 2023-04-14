@@ -1,48 +1,55 @@
-const db = require("../../config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createErrorHandler } = require("../../middleware/error-handler");
+const User = require("../models/user");
 
 class AuthController {
-  register(req, res) {
-    //CHECK EXISTING USER
-    const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+  async register(req, res, next) {
+    try {
+      const existingUser = await User.findOne({
+        where: { email: req.body.email },
+      });
 
-    db.query(q, [req.body.email, req.body.username], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data.length) return res.status(409).json("User already exists!");
+      if (existingUser) {
+        return next(createErrorHandler("User already exists!", 409));
+      }
 
-      //Hash the password and create a user
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
 
-      const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-      const values = [req.body.username, req.body.email, hash];
-
-      db.query(q, [values], (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.status(200).json("User has been created.");
+      const newUser = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: hash,
       });
-    });
+
+      return res.status(200).json("User has been created.");
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(error);
+    }
   }
 
-  login(req, res, next) {
-    //CHECK USER
-    const q = "SELECT * FROM users WHERE username = ?";
-    db.query(q, [req.body.username], (err, data) => {
-      if (err) return next(createErrorHandler(err, 500));
-      if (data.length === 0)
-        return next(createErrorHandler("Wrong username or password!", 404));
+  async login(req, res, next) {
+    try {
+      const user = await User.findOne({
+        where: { email: req.body.email },
+      });
+      if (!user) {
+        return next(createErrorHandler("Wrong email or password!", 404));
+      }
+
       //Check password
       const isPasswordCorrect = bcrypt.compareSync(
         req.body.password,
-        data[0].password
+        user.password
       );
+      if (!isPasswordCorrect) {
+        return next(createErrorHandler("Wrong email or password!", 400));
+      }
 
-      if (!isPasswordCorrect)
-        return next(createErrorHandler("Wrong username or password!", 400));
-      const token = jwt.sign({ id: data[0].id }, "jwtkey");
-      const { password, ...other } = data[0];
+      const token = jwt.sign({ id: user.id }, "jwtkey");
+      const { password, ...other } = user.toJSON();
 
       res
         .cookie("access_token", token, {
@@ -58,21 +65,26 @@ class AuthController {
           message: "user login successfully",
           other,
         });
-    });
+    } catch (error) {
+      console.log(error);
+      return next(createErrorHandler(error, 500));
+    }
   }
 
-  logout(req, res) {
-    res
-      .clearCookie("access_token", {
+  async logout(req, res, next) {
+    try {
+      res.clearCookie("access_token", {
         domain: "localhost",
+        httpOnly: true,
         sameSite: "none",
         secure: true,
-      })
-      .status(200)
-      .json({
-        success: true,
-        message: "User has been logged out!",
       });
+      res
+        .status(200)
+        .json({ success: true, message: "User logged out successfully" });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

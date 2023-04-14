@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loadUser, registerUser } from "../services/authServices";
 const currentUser = JSON.parse(localStorage.getItem("user")) || null;
 
 const initialState = {
@@ -15,12 +14,12 @@ const authSlice = createSlice({
     builder
 
       //register
-      .addCase(fetchRegister.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-      })
-      .addCase(fetchRegister.rejected, (state, action) => {
-        state.msg = action.payload.msg;
-      })
+      // .addCase(fetchRegister.fulfilled, (state, action) => {
+      //   state.isAuthenticated = true;
+      // })
+      // .addCase(fetchRegister.rejected, (state, action) => {
+      //   state.msg = action.payload.msg;
+      // })
 
       //login
 
@@ -32,19 +31,19 @@ const authSlice = createSlice({
       });
   },
 });
+
 export const fetchRegister = createAsyncThunk(
   "auth/fetchRegister",
-  async (valueForm) => {
-    const response = await registerUser(valueForm);
-    return response;
-  }
-);
-
-export const fetchLoadUser = createAsyncThunk(
-  "auth/fetchLoadUser",
-  async () => {
-    const response = await loadUser();
-    return response;
+  async (valueForm, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/auth/register",
+        valueForm
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 

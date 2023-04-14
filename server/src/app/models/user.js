@@ -26,5 +26,23 @@ const User = sequelize.define("user", {
     allowNull: false,
     defaultValue: "3",
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.NOW,
+  },
 });
+
+// User.sync({ alter: true })
+//   .then(() => {
+//     console.log("User table created successfully");
+//   })
+//   .catch((error) => {
+//     console.error("Error creating user table:", error);
+//   });
 module.exports = User;
