@@ -1,10 +1,11 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
-import { Link } from "react-router-dom";
 import { Logo } from "../components";
 
 const Footer = () => {
-  const navItems = [
+  const navItems1 = [
     { name: "Products", path: "/products" },
     { name: "Store Location", path: "/stores" },
     { name: "Contact", path: "/contact" },
@@ -16,43 +17,46 @@ const Footer = () => {
     { name: "Jobs", path: "/" },
     { name: "Terms and Conditions", path: "/" },
   ];
+
+  const NavItem = ({ item }) => {
+    return (
+      <li>
+        <Link to={item.path} className="hover:underline">
+          {item.name}
+        </Link>
+      </li>
+    );
+  };
+
+  const Nav = ({ items, title }) => {
+    return (
+      <div>
+        <h2 className="mb-2 font-bold">{title}</h2>
+        <ul className="flex flex-col gap-[6px] text-sm">
+          {items.map((item, index) => (
+            <React.Fragment key={index}>
+              <NavItem item={item} />
+            </React.Fragment>
+          ))}
+        </ul>
+      </div>
+    );
+  };
   return (
     <footer className="mt-16">
       <section className="grid lg:grid-cols-4 grid-cols-2 mb-4 pt-12">
         <div>
           <Logo />
-          <h2 className="uppercase mt-3 text-xs lg:tracking-[4px] tracking-[1px]">
+          <h2 className="uppercase mt-3 text-sm lg:tracking-[4px] tracking-[1px]">
             A clothing Brand
           </h2>
         </div>
-        <div>
-          <h2 className="mb-2 font-bold">Menubar</h2>
-          <ul className="flex flex-col text-xs">
-            {navItems.map((item, index) => (
-              <li key={index} className="mb-2">
-                <Link to={item.path} className="hover:underline">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="mb-2 font-bold">Useful Links</h2>
-          <ul className="flex flex-col gap-[6px] text-xs">
-            {navItems2.map((item, index) => (
-              <li key={index}>
-                <Link to={item.path} className="hover:underline">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Nav items={navItems1} title={"Menubar"} />
+        <Nav items={navItems2} title={"Useful Links"} />
         <div className="text-sm">
           <h2 className="mb-2 font-bold">Reach Out to us</h2>
           <span className="flex items-center gap-2 mb-[5px]">
-            <HiOutlineMail /> shop@fashionista.com
+            <HiOutlineMail /> shop@fashion.com
           </span>
           <span className="flex items-center gap-2 mb-[5px]">
             <HiOutlinePhone /> +99012345{" "}
@@ -66,13 +70,13 @@ const Footer = () => {
         </div>
         <div className="flex items-center gap-5 lg:text-xl md:text-lg text-md">
           <a href="https://facebook.com/" target="_blank" rel="noreferrer">
-            <BsFacebook className="text-[#4267B2] hover:scale-125 tarnsition duration-300" />
+            <BsFacebook className="text-[#4267B2] hover:scale-125 transition duration-300" />
           </a>
           <a href="https://facebook.com/" target="_blank" rel="noreferrer">
-            <BsInstagram className="text-[#E1306C] hover:scale-125 tarnsition duration-300" />
+            <BsInstagram className="text-[#E1306C] hover:scale-125 transition duration-300" />
           </a>
           <a href="https://facebook.com/" target="_blank" rel="noreferrer">
-            <BsTwitter className="text-[#1DA1F2] hover:scale-125 tarnsition duration-300" />
+            <BsTwitter className="text-[#1DA1F2] hover:scale-125 transition duration-300" />
           </a>
         </div>
       </section>

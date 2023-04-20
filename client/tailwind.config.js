@@ -2,10 +2,22 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   daisyui: {
-    themes: ["winter"],
+    themes: [
+      {
+        winter: {
+          ...require("daisyui/src/colors/themes")["[data-theme=winter]"],
+          primary: "#ec7272",
+        },
+      },
+    ],
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#ec7272",
+        secondary: "#16c79e",
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

@@ -1,6 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorPage, Login, Register, Home, Cart } from "../pages";
 import Main from "../layouts/Main";
+import {
+  Login,
+  Register,
+  Home,
+  Products,
+  ProductPage,
+  StoreLocation,
+  Contact,
+  Cart,
+  Wishlist,
+  ErrorPage,
+} from "../pages";
 
 export const routes = createBrowserRouter([
   {
@@ -11,6 +22,27 @@ export const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/products",
+        element: <Products />,
+      },
+      {
+        path: "/products/:id",
+        element: <ProductPage />,
+      },
+
+      {
+        path: "/stores",
+        element: <StoreLocation />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/wish-list",
+        element: <Wishlist />,
       },
       {
         path: "/cart",

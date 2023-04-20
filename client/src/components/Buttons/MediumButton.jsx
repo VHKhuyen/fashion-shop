@@ -1,7 +1,7 @@
 const MediumButton = ({ children, btnSpecially }) => {
   return (
     <button
-      className={`px-4 py-[6px] rounded-md hover:bg-error transition duration-300 ${btnSpecially}`}
+      className={` btn btn-primary  hover:opacity-80 text-white btn-md capitalize  h-10 min-h-[2.5rem] rounded-md  transition duration-300 ${btnSpecially}`}
     >
       {children}
     </button>

@@ -1,10 +1,8 @@
-import React from "react";
-
 const AddToCartButton = ({ handleAddToCart }) => {
   return (
     <button
       onClick={handleAddToCart}
-      className="btn btn-primary hover:btn-error hover:text-white rounded-md normal-case text-white btn-wide"
+      className="btn btn-primary hover:opacity-80 hover:text-white rounded-md normal-case text-white btn-wide"
     >
       <lord-icon
         target="button"

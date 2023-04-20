@@ -1,11 +1,8 @@
-import React from "react";
-
 const PrimaryButton = ({ children, eventHandler }) => {
   return (
     <button
       onClick={eventHandler}
-      className="btn lg:btn-md md:btn-md btn-sm text-white normal-case lg:px-8 md:px-8 px-5 rounded-md border-none"
-      style={{ backgroundColor: "#EC7272" }}
+      className="btn btn-primary hover:opacity-80 lg:btn-md md:btn-md btn-sm text-white normal-case lg:px-8 md:px-8 px-5 rounded-md border-none"
     >
       {children} &nbsp;
       <lord-icon

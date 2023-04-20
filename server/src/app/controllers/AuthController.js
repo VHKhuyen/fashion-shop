@@ -1,29 +1,32 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createErrorHandler } = require("../../middleware/error-handler");
-const User = require("../models/user");
+const Customer = require("../models/customer");
 
 class AuthController {
   async register(req, res, next) {
     try {
-      const existingUser = await User.findOne({
+      const existingCustomer = await Customer.findOne({
         where: { email: req.body.email },
       });
 
-      if (existingUser) {
-        return next(createErrorHandler("User already exists!", 409));
+      if (existingCustomer) {
+        return next(createErrorHandler("Account already exists!", 409));
       }
 
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
 
-      const newUser = await User.create({
+      const newCustomer = await Customer.create({
         name: req.body.name,
         email: req.body.email,
         password: hash,
       });
 
-      return res.status(200).json("User has been created.");
+      return res.status(200).json({
+        success: true,
+        message: "Account has been created",
+      });
     } catch (error) {
       console.log(error);
       return res.status(500).json(error);
@@ -32,7 +35,7 @@ class AuthController {
 
   async login(req, res, next) {
     try {
-      const user = await User.findOne({
+      const user = await Customer.findOne({
         where: { email: req.body.email },
       });
       if (!user) {
@@ -49,7 +52,7 @@ class AuthController {
       }
 
       const token = jwt.sign({ id: user.id }, "jwtkey");
-      const { password, ...other } = user.toJSON();
+      const { password, ...infoUser } = user.toJSON();
 
       res
         .cookie("access_token", token, {
@@ -62,8 +65,8 @@ class AuthController {
         .status(200)
         .json({
           success: true,
-          message: "user login successfully",
-          other,
+          message: "login successfully",
+          infoUser,
         });
     } catch (error) {
       console.log(error);
@@ -74,14 +77,11 @@ class AuthController {
   async logout(req, res, next) {
     try {
       res.clearCookie("access_token", {
-        domain: "localhost",
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
+        path: "/",
       });
       res
         .status(200)
-        .json({ success: true, message: "User logged out successfully" });
+        .json({ success: true, message: "logged out successfully" });
     } catch (error) {
       next(error);
     }

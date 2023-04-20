@@ -1,9 +1,11 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const currentUser = JSON.parse(localStorage.getItem("user")) || null;
+const userJSON = localStorage.getItem("user");
+const currentUser = userJSON ? JSON.parse(userJSON) : null;
 
 const initialState = {
   currentUser,
+  loading: false,
 };
 
 const authSlice = createSlice({
@@ -14,20 +16,41 @@ const authSlice = createSlice({
     builder
 
       //register
-      // .addCase(fetchRegister.fulfilled, (state, action) => {
-      //   state.isAuthenticated = true;
-      // })
-      // .addCase(fetchRegister.rejected, (state, action) => {
-      //   state.msg = action.payload.msg;
-      // })
+      .addCase(fetchRegister.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchRegister.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchRegister.rejected, (state, action) => {
+        state.loading = false;
+      })
 
       //login
-
+      .addCase(fetchLogin.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        state.currentUser = action.payload;
+        state.currentUser = action.payload.infoUser;
+        localStorage.setItem("user", JSON.stringify(action.payload.infoUser));
+        state.loading = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.currentUser = null;
+        state.loading = false;
+      })
+
+      //logout
+      .addCase(fetchLogout.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchLogout.fulfilled, (state, action) => {
+        localStorage.removeItem("user");
+        state.currentUser = null;
+        state.loading = false;
+      })
+      .addCase(fetchLogout.rejected, (state, action) => {
+        state.loading = false;
       });
   },
 });
@@ -65,9 +88,9 @@ export const fetchLogin = createAsyncThunk(
   }
 );
 
-export const logout = async () => {
+export const fetchLogout = createAsyncThunk("auth/fetchLogout", async () => {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       "http://localhost:8000/api/v1/auth/logout",
       {
         withCredentials: true,
@@ -77,6 +100,6 @@ export const logout = async () => {
   } catch (error) {
     return error.response.data;
   }
-};
+});
 
 export default authSlice.reducer;
