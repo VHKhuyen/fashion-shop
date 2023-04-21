@@ -46,7 +46,9 @@ const ListProductSlider = ({ products }) => {
   return (
     <Slider {...settings}>
       {products?.map((item, index) => (
-        <ProductCard key={index} data={item} />
+        <div key={index} className="px-2">
+          <ProductCard data={item} />
+        </div>
       ))}
     </Slider>
   );

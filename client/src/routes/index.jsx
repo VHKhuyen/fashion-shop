@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import {
@@ -29,6 +30,9 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/products/:id",
+        loader: async ({ params }) =>
+          await axios.get(`http://localhost:8000/api/v1/products/${params.id}`),
+
         element: <ProductPage />,
       },
 

@@ -1,62 +1,52 @@
-import { useNavigate } from "react-router-dom";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import "../../assets/styles/cart.css";
+import { avatar } from "../../assets/images";
 
 const ProductCard = ({ data, setModalOpen }) => {
-  const { name, img, price, seller, ratingsCount, id } = data;
-  const navigate = useNavigate();
+  const {
+    product_id,
+    name,
+    description,
+    unit_price: price,
+    quantity_in_stock,
+    ratingsCount,
+    category,
+    images,
+    variants,
+  } = data;
 
-  const handleGoLink = () => {
-    navigate(`/products/${id}`);
-    // setTimeout(() => {
-    //   setModalOpen(false);
-    // }, 700);
-  };
   return (
     <div
-      onClick={handleGoLink}
-      className="rounded-lg cart-card m-2 transition duration-300 hover:text-[#222] cursor-pointer "
+      className="rounded-lg cart-card transition duration-300 hover:text-[#222] "
       data-aos="fade-up"
     >
-      <div className="lg:h-64 h-40 w-full overflow-hidden rounded-t-lg bg-[#eceff1]">
-        <img
-          src={img}
-          alt=""
-          className="h-full w-full object-cover rounded-t-lg productImg"
-        />
+      <div className="lg:h-64 h-40 w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
+        <Link to={`/products/${product_id}`}>
+          <img
+            src={images[0]?.imgUrl}
+            alt=""
+            className="h-full w-full object-cover rounded-t-lg productImg"
+          />
+        </Link>
       </div>
-      <div className="lg:h-32 md:h-32 h-[120px] flex flex-col justify-between lg:p-4 md:p-4 p-2">
-        <div>
-          <span className="text-xs text-error">{seller}</span>
-          <h2
-            className="lg:text-lg md:text-lg text-sm leading-[20px]"
-            style={{ textTransform: "capitalize" }}
-          >
-            {name.toLowerCase()}
-          </h2>
+      <div>
+        <h3
+          className="lg:text-base  hover:text-primary  md:text-lg text-sm leading-[18px]"
+          style={{ textTransform: "capitalize" }}
+        >
+          <Link to={`/products${product_id}`}>{name.toLowerCase()}</Link>
+        </h3>
+        <div className="mb-[7px]">
+          <span className="font-bold text-base">{price}đ</span>
         </div>
-        <div className="flex lg:flex-row md:flex-row flex-col lg:gap-0 md:gap-0 gap-1 justify-between">
-          <h2 className="font-bold text-sm ">BDT {price * 10}</h2>
-          <div className="flex items-center gap-2">
-            <span className="flex lg:gap-1 md:gap-1 gap-[2px] lg:text-sm md:text-sm text-xs text-[#FFB84C]">
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarFill />
-              <BsStarHalf />
-              <BsStar />
-            </span>
-            <span
-              style={{
-                height: "4px",
-                width: "4px",
-                borderRadius: "50%",
-                backgroundColor: "#888",
-              }}
-            ></span>
-            <span className="lg:text-md md:text-md text-xs">
-              {ratingsCount}
-            </span>
-          </div>
+        <div>
+          {images.map((img, index) => (
+            <div key={index} className="avatar ">
+              <div className="cursor-pointer border-[1px] hover:border-primary w-8 mr-3 rounded-full">
+                <img src={img.imgUrl} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,89 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import { AddToCartButton, ProductCard, Subscribe } from "../../components";
 import { useTitle } from "../../hooks";
 import ProductReview from "./ProductReview";
 
-const product = {
-  id: "b4d83415-d20a-4bba-8629-22b2780b6e93",
-  category: "Men's Boot",
-  name: "TERRET FREE HIKER COLD.RDY HIKING BOOTS",
-  seller: "Adidas",
-  price: 169,
-  stock: 17,
-  ratings: 5,
-  ratingsCount: 2833,
-  img: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2ded0bee28b249bbb19cad5000818b77_9366/Terrex_Free_Hiker_COLD.RDY_Hiking_Boots_Black_FZ3364_01_standard.jpg",
-  shipping: 10,
-  quantity: 0,
-};
-
-const products = [
-  {
-    id: "b4d83415-d20a-4bba-8629-22b2780b6e93",
-    category: "Men's Boot",
-    name: "TERREX FREE HIKER COLD.RDY HIKING BOOTS",
-    seller: "Addidas",
-    price: 169,
-    stock: 17,
-    ratings: 5,
-    ratingsCount: 2833,
-    img: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2ded0bee28b249bbb19cad5000818b77_9366/Terrex_Free_Hiker_COLD.RDY_Hiking_Boots_Black_FZ3364_01_standard.jpg",
-    shipping: 10,
-    quantity: 0,
-  },
-  {
-    id: "1d54fd83-83df-42f8-ae2b-f5ef9d4987ea",
-    category: "Men's Sneaker",
-    name: "MOVE FEELREADY SPORT TEE",
-    seller: "Addidas",
-    price: 14,
-    stock: 19,
-    ratings: 3,
-    ratingsCount: 4041,
-    img: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ec81fbd781fe4aa3a8cead230019c192_9366/AEROREADY_Designed_2_Move_Feelready_Sport_Tee_Burgundy_H30268_21_model.jpg",
-    shipping: 5,
-    quantity: 0,
-  },
-  {
-    id: "1ce97e0e-3611-4406-8788-7b413640f59e",
-    category: "Men's Sneaker",
-    name: "ADIDAS CAMO BOX GRAPHIC TEE",
-    seller: "Addidas",
-    price: 16,
-    stock: 10,
-    ratings: 3,
-    ratingsCount: 4505,
-    img: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/809d5f06a7c74e93aef3ad08017c415a_9366/adidas_Camo_Box_Graphic_Tee_Grey_HB4828_21_model.jpg",
-    shipping: 11,
-    quantity: 0,
-  },
-  {
-    id: "f088beb8-d664-4166-99f8-6995c2f08465",
-    category: "Men's Sneaker",
-    name: "ADICOLOR CLASSICS TREFOIL TEE",
-    seller: "Addidas",
-    price: 20,
-    stock: 12,
-    ratings: 4,
-    ratingsCount: 41,
-    img: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/de7b5dc9e5a341b9bf5aad570106ba06_9366/Adicolor_Classics_Trefoil_Tee_Burgundy_H06641_21_model.jpg",
-    shipping: 38,
-    quantity: 0,
-  },
-];
-
 const ProductDetail = () => {
   useTitle("Product");
-  const { id, name, img, seller, price, category } = product;
+  const { data: product } = useLoaderData();
+  const { name, description, images, unit_price, category } = product;
+
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState(1);
   const [added, setAdded] = useState(false);
   const [storedWl, setStoredWl] = useState(false);
 
   const [size, setSize] = useState(1);
-  const sizes = ["M", "L", "XL", "2XL"];
+  const sizes = ["S", "M", "L", "XL", "2XL"];
   const [color, setColor] = useState(1);
 
   const handleAddToCart = () => {};
@@ -103,7 +36,7 @@ const ProductDetail = () => {
           style={{ backgroundColor: "#eceff1", maxHeight: "600px" }}
         >
           <img
-            src={img}
+            src={images[0].imgUrl}
             alt=""
             className="w-auto object-cover rounded-xl"
             style={{ maxHeight: "600px" }}
@@ -112,9 +45,8 @@ const ProductDetail = () => {
 
         {/* Product Details */}
         <div className="lg:w-1/2 pt-4">
-          <span className="text-error">{seller}</span>
           <h1 className="text-3xl font-bold">{name}</h1>
-          <h2 className="text-4xl mt-6">BDT {price * 10}</h2>
+          <h3 className="text-4xl mt-6"> {unit_price}đ</h3>
 
           <div className="flex flex-col mt-8 gap-8">
             {/* PICK A SIZE */}
@@ -254,13 +186,7 @@ const ProductDetail = () => {
           {/* Detail and Description */}
           <div className="mt-6">
             {/* Product Description */}
-            {selectedTab === 1 && (
-              <p className="text-justify">
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form, by
-                injected humour.
-              </p>
-            )}
+            {selectedTab === 1 && <p className="text-justify">{description}</p>}
 
             {/* Product Specification */}
             {selectedTab === 2 && (
@@ -269,7 +195,7 @@ const ProductDetail = () => {
                   <thead>
                     <tr>
                       <th>Seller</th>
-                      <th>{seller}</th>
+                      <th>Hello</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -283,7 +209,7 @@ const ProductDetail = () => {
                     </tr>
                     <tr>
                       <td>Category</td>
-                      <td>{category}</td>
+                      <td>{category.name}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -297,7 +223,7 @@ const ProductDetail = () => {
       </section>
 
       {/* SIMILAR PRODUCTS */}
-      <section className="my-32">
+      {/* <section className="my-32">
         <h2 className="text-2xl font-bold textGradient mb-8">
           Similar Products
         </h2>
@@ -309,7 +235,7 @@ const ProductDetail = () => {
               <ProductCard key={index} data={item} />
             ))}
         </div>
-      </section>
+      </section> */}
 
       {/* GET COUPON */}
       <Subscribe />

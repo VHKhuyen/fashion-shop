@@ -9,6 +9,7 @@ import { Logo } from "./index";
 import { authSelector } from "../redux/selector";
 import { fetchLogout } from "../redux/authSlice";
 import { toast } from "react-hot-toast";
+import { HiOutlineSearch } from "react-icons/hi";
 
 function Navbar() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,7 +19,7 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <Link to="/products" className="flex items-center gap-1">
+        <Link to="/products" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
             src="https://cdn.lordicon.com/hyhnpiza.json"
@@ -29,7 +30,7 @@ function Navbar() {
         </Link>
       </li>
       <li>
-        <Link to="/stores" className="flex items-center gap-1">
+        <Link to="/stores" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
             src="https://cdn.lordicon.com/osuxyevn.json"
@@ -40,7 +41,7 @@ function Navbar() {
         </Link>
       </li>
       <li>
-        <Link to="/contact" className="flex items-center gap-1">
+        <Link to="/contact" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
             src="https://cdn.lordicon.com/hpivxauj.json"
@@ -52,12 +53,12 @@ function Navbar() {
       </li>
     </>
   );
+
   const handleLogout = async () => {
     try {
       const toastId = toast.loading("Waiting...");
       const result = await dispatch(fetchLogout());
       toast.remove(toastId);
-      console.log(result);
       if (result.payload?.success) {
         toast.success(`${result.payload?.message}`, {
           onClose: setTimeout(() => {
@@ -79,22 +80,21 @@ function Navbar() {
       <div className="navbar px-0 mx-auto max-w-[1240px]">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn pl-0 btn-ghost lg:hidden">
+            <button tabIndex={0} className="btn btn-square btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                className="inline-block w-7 h-7 stroke-current"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
               </svg>
-            </label>
+            </button>
             <ul
               tabIndex={0}
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
@@ -102,69 +102,74 @@ function Navbar() {
               {navItems}
             </ul>
           </div>
-          <Logo />
+          <Logo className="hidden lg:flex" />
+          <div className="hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">{navItems}</ul>
+          </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navItems}</ul>
+        <div className="navbar-center lg:hidden">
+          <Logo className=" lg:hidden" />
         </div>
         <div className="navbar-end">
+          <div className="hidden lg:flex input-group justify-end">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input bg-gray-100 hover:border-primary transition-colors duration-300 focus:outline-none focus:border-primary h-10"
+            />
+            <button className="btn btn-primary text-white hover:opacity-80 min-h-6 h-10 leading-10">
+              <lord-icon
+                target="button"
+                src="https://cdn.lordicon.com/xfftupfv.json"
+                trigger="hover"
+                colors="primary:#ffffff"
+                style={{ height: "25px", width: "25px", color: "red" }}
+              ></lord-icon>
+            </button>
+          </div>
           <button
             // onClick={() => setModalOpen(true)}
-            className="cursor-pointer hover:text-primary flex items-center gap-1 mr-5 color-change"
+            className="lg:hidden cursor-pointer hover:text-primary flex items-center gap-1 mr-5 color-change"
+          >
+            <HiOutlineSearch className="text-2xl pb-[1px]" />
+          </button>
+          <Link
+            to="/cart"
+            className="hidden lg:flex hover:text-primary  items-center gap-1 mx-4  min-w-fit color-change"
           >
             <lord-icon
-              target="button"
-              src="https://cdn.lordicon.com/xfftupfv.json"
+              target="a"
+              src="https://cdn.lordicon.com/hyhnpiza.json"
               trigger="hover"
               class="set-color"
               style={{ height: "20px", width: "20px" }}
             ></lord-icon>
-            <span className="lg:block md:block hidden">Search</span>
+            Your Cart
+          </Link>
+          <button className="mr-5 lg:hidden  block">
+            <BsCart2 className="text-2xl pb-[1px]" />
           </button>
-          {!currentUser && (
-            <Link
-              to="/wish-list"
-              className="hover:text-primary flex items-center gap-1 mr-5 color-change"
-            >
-              <lord-icon
-                target="a"
-                src="https://cdn.lordicon.com/pnhskdva.json"
-                trigger="hover"
-                class="set-color"
-                style={{ height: "20px", width: "20px" }}
-              ></lord-icon>
-              <span className="lg:block md:block hidden">WishList</span>
-            </Link>
-          )}
-
-          <button
-            onClick={() => setCartOpen(!cartOpen)}
-            className="mr-5 lg:hidden md:hidden block"
-          >
-            <BsCart2 className="text-xl pb-[1px] text-error" />
-          </button>
-
           {/* SIGN IN */}
           {!currentUser ? (
             <>
               <Link to="/login" className="mr-2 lg:hidden md:hidden block">
                 <FiLogIn className="text-xl text-colorRed" />
               </Link>
-              <Link to="/login" className="ml-2 lg:block md:block hidden">
+              <Link to="/login" className="min-w-fit lg:block md:block hidden">
                 <MediumButton>Sign In</MediumButton>
               </Link>
             </>
           ) : (
             <>
-              <div className="dropdown">
+              <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 rounded-full">
+                  <div className="w-9 rounded-full">
                     <img src={avatar} />
                   </div>
                 </label>
                 <ul
                   tabIndex={0}
-                  className="menu menu-compact dropdown-content -ml-40 mt-2 p-2 shadow bg-[#DDF7E3] rounded-lg text-base-content w-52"
+                  className="menu menu-compact dropdown-content mt-2 p-2 shadow bg-[#DDF7E3] rounded-xl  w-52"
                 >
                   <div className="flex px-4 py-2">
                     <div className="avatar">
@@ -176,24 +181,13 @@ function Navbar() {
                       {currentUser.name}
                     </h3>
                   </div>
-                  <li>
+                  <li className="hover-bordered">
                     <Link to="/profile" className=" flex items-center gap-1">
                       Profile
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/cart" className=" flex items-center gap-1">
-                      <lord-icon
-                        target="a"
-                        src="https://cdn.lordicon.com/hyhnpiza.json"
-                        trigger="hover"
-                        style={{ height: "20px", width: "20px" }}
-                      ></lord-icon>
-                      My Cart
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/wish-list" className=" flex items-center gap-1">
+                  <li className="hover-bordered">
+                    <Link to="/wish-list" className="flex items-center gap-1">
                       <lord-icon
                         target="a"
                         src="https://cdn.lordicon.com/pnhskdva.json"
@@ -204,10 +198,11 @@ function Navbar() {
                       <span>WishList</span>
                     </Link>
                   </li>
+
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="btn btn-primary mt-4 w-full text-white normal-case hover:btn-error hover:text-white"
+                      className="btn btn-primary mt-4 w-full hover:opacity-80 text-white normal-case"
                     >
                       Logout
                     </button>
@@ -216,44 +211,6 @@ function Navbar() {
               </div>
             </>
           )}
-          {/* <div className="navbar bg-base-100">
-            <div className="flex-1">
-              <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
-            </div>
-            <div className="flex-none gap-2">
-              <div className="form-control">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
-                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                  </div>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>Settings</a>
-                  </li>
-                  <li>
-                    <a>Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </section>

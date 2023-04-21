@@ -1,13 +1,5 @@
 const Store = require("../models/store");
 
-// const validateCourse = (course) => {
-//   const schema = Joi.object({
-//     name: Joi.string().min(3).max(30).required(),
-//   });
-
-//   return schema.validate(course);
-// };
-
 class StoreController {
   // Get all stores
   async getAllStores(req, res) {
