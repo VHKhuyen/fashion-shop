@@ -13,7 +13,7 @@ class ProductController {
           {
             model: Category,
             as: "category",
-            attributes: ["name"],
+            attributes: ["name", "slug"],
           },
           {
             model: ProductImg,
@@ -25,6 +25,10 @@ class ProductController {
             as: "variants",
             attributes: ["color", "size", "quantity_in_stock"],
           },
+        ],
+        order: [
+          ["images", "img_id", "asc"],
+          ["variants", "product_variants_id", "ASC"],
         ],
       });
 
@@ -41,7 +45,7 @@ class ProductController {
 
       return res.status(201).json({
         success: true,
-        message: "create product successfully.",
+        message: "all categories",
         categories,
       });
     } catch (err) {

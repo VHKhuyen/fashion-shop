@@ -6,19 +6,35 @@ import { BsCart2 } from "react-icons/bs";
 import { avatar } from "../assets/images";
 import { MediumButton } from "../components";
 import { Logo } from "./index";
-import { authSelector } from "../redux/selector";
+import { authSelector, cartSelector } from "../redux/selector";
 import { fetchLogout } from "../redux/authSlice";
 import { toast } from "react-hot-toast";
 import { HiOutlineSearch } from "react-icons/hi";
 
 function Navbar() {
-  const [modalOpen, setModalOpen] = useState(false);
   const { currentUser } = useSelector(authSelector);
+  const { cartItems } = useSelector(cartSelector);
+
+  const calculateTotalQty = (products) => {
+    let totalQty = 0;
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      totalQty += product.quantity;
+    }
+    return totalQty;
+  };
+  const totalQty = calculateTotalQty(cartItems);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleClick = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+  };
   const navItems = (
     <>
-      <li>
+      <li onClick={handleClick}>
         <Link to="/products" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
@@ -29,7 +45,7 @@ function Navbar() {
           Collections
         </Link>
       </li>
-      <li>
+      <li onClick={handleClick}>
         <Link to="/stores" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
@@ -40,7 +56,7 @@ function Navbar() {
           Store Location
         </Link>
       </li>
-      <li>
+      <li onClick={handleClick}>
         <Link to="/contact" className="flex items-center p-3  gap-1">
           <lord-icon
             target="a"
@@ -137,18 +153,29 @@ function Navbar() {
             to="/cart"
             className="hidden lg:flex hover:text-primary  items-center gap-1 mx-4  min-w-fit color-change"
           >
-            <lord-icon
-              target="a"
-              src="https://cdn.lordicon.com/hyhnpiza.json"
-              trigger="hover"
-              class="set-color"
-              style={{ height: "20px", width: "20px" }}
-            ></lord-icon>
-            Your Cart
+            <div className="indicator">
+              <span className="indicator-item badge badge-primary px-[6px]">
+                {totalQty}
+              </span>
+              <lord-icon
+                target="a"
+                src="https://cdn.lordicon.com/hyhnpiza.json"
+                trigger="hover"
+                class="set-color"
+                style={{ height: "25px", width: "25px" }}
+              ></lord-icon>
+            </div>
+            <span className="ml-1">Your Cart</span>
           </Link>
-          <button className="mr-5 lg:hidden  block">
-            <BsCart2 className="text-2xl pb-[1px]" />
-          </button>
+          <Link to="/cart" className="mr-5 lg:hidden  block">
+            <div className="indicator">
+              <span className="indicator-item badge badge-primary px-[6px]">
+                {totalQty}
+              </span>
+              <BsCart2 className="text-2xl pb-[1px]" />
+            </div>
+          </Link>
+
           {/* SIGN IN */}
           {!currentUser ? (
             <>

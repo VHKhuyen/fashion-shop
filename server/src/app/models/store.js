@@ -57,11 +57,4 @@ const Store = sequelize.define("store", {
   },
 });
 
-// Store.sync({ alter: true })
-//   .then(() => {
-//     console.log("Store table created successfully");
-//   })
-//   .catch((error) => {
-//     console.error("Error creating store table:", error);
-//   });
 module.exports = Store;

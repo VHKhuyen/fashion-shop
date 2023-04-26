@@ -1,4 +1,4 @@
-import axios from "axios";
+import { requestShop } from "../../utils/httpRequest";
 import { useEffect, useState } from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { ProductCard } from "../../components";
@@ -7,35 +7,39 @@ import { priceRanges, sizes } from "../../data";
 
 const Products = () => {
   useTitle("Products");
+
   const [products, setProducts] = useState([]);
-  const tabs = [...new Set(products?.map((p) => p.category.name))];
+  const [selectedProduct, setSelectedProduct] = useState([]);
   const [selectedTab, setSelectedTab] = useState(100);
+  const categories = [...new Set(products?.map((p) => p.category.name))];
 
   const handleTab = (category, index) => {
     setSelectedTab(index);
     if (category === "all") {
-      setProducts(products);
+      setSelectedProduct(products);
     } else {
       const sortProducts = products.filter((p) => p.category.name === category);
-      setProducts(sortProducts);
+      setSelectedProduct(sortProducts);
+    }
+  };
+  const fetchProducts = async () => {
+    try {
+      const response = await requestShop.get("/products");
+      setProducts(response.data);
+      setSelectedProduct(response.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await axios.get("http://localhost:8000/api/v1/products");
-      setProducts(response.data);
-    }
     fetchProducts();
   }, []);
 
   return (
     <div className="flex lg:flex-row flex-col gap-5">
       <div className="lg:w-[25%]">
-        <aside
-          className="hidden rounded-lg lg:block bg-white sticky top-16 py-4 px-2 lg:mx-0 md:mx-0 "
-          style={{ zIndex: "2" }}
-        >
+        <aside className="hidden rounded-lg lg:block bg-white sticky top-16 py-4 px-2 lg:mx-0 md:mx-0 z-[2]">
           <div className="flex flex-wrap px-2">
             <div className="flex items-center gap-2 mr-3 py-2">
               <BsFilterSquare className="text-xl" />
@@ -111,17 +115,17 @@ const Products = () => {
         </aside>
       </div>
       <section className="lg:w-[75%]">
-        <div className="tabs tabs-boxed bg-transparent p-0 pb-3">
-          <a
+        <ul className="tabs tabs-boxed bg-transparent p-0 pb-3">
+          <li
             onClick={() => handleTab("all", 100)}
             className={`tab mr-2 ${
               selectedTab == 100 ? "tab-active" : "bg-gray-200"
             }`}
           >
             All
-          </a>
-          {tabs?.map((category, index) => (
-            <a
+          </li>
+          {categories?.map((category, index) => (
+            <li
               key={index}
               onClick={() => handleTab(category, index)}
               className={`tab mr-2  ${
@@ -129,12 +133,14 @@ const Products = () => {
               }`}
             >
               {category}
-            </a>
+            </li>
           ))}
-        </div>
+        </ul>
         <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-5">
-          {products?.map((item, index) => (
-            <ProductCard key={index} data={item} />
+          {selectedProduct?.map((item, index) => (
+            <div key={index}>
+              <ProductCard data={item} />
+            </div>
           ))}
         </div>
       </section>

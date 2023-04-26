@@ -24,7 +24,7 @@ const Login = () => {
     const result = await dispatch(fetchLogin(formData));
     toast.remove(toastId);
     if (result.payload?.success) {
-      toast.success(`${result.payload?.message}`, {
+      toast.success("Login successfully!", {
         onClose: setTimeout(() => {
           navigate("/");
         }, 1.5 * 1000),
@@ -60,13 +60,6 @@ const Login = () => {
               onChange={handleInputChange}
               required
             />
-
-            {/* {error && (
-              <span className="text-error text-sm flex items-center gap-1">
-                <BiError />
-                Your Email and Password is incorrect!
-              </span>
-            )} */}
             <button className="btn btn-primary hover:opacity-80 w-full text-white normal-case mt-4">
               Login
             </button>

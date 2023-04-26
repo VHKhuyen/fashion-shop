@@ -24,7 +24,7 @@ const Register = () => {
     const result = await dispatch(fetchRegister(formData));
     toast.remove(toastId);
     if (result.payload?.success) {
-      toast.success(`${result.payload?.message}`, {
+      toast.success("Register successfully!", {
         onClose: setTimeout(() => {
           navigate("/login");
         }, 1.5 * 1000),

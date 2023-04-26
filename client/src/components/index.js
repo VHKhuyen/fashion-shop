@@ -4,7 +4,6 @@ export { default as Subscribe } from "./Subscribe";
 export { default as NoItemsFound } from "./NoItemsFound";
 export { default as SeeMore } from "./SeeMore";
 
-export { default as AddToCartButton } from "./Buttons/AddToCartButton";
 export { default as MediumButton } from "./Buttons/MediumButton";
 export { default as PrimaryButton } from "./Buttons/PrimaryButton";
 export { default as ScrollToTop } from "./Buttons/ScrollToTop";

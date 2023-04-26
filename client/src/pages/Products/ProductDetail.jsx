@@ -1,159 +1,176 @@
-import { useState } from "react";
-import { useNavigate, useLoaderData } from "react-router-dom";
-import { IoMdAdd, IoMdRemove } from "react-icons/io";
-import { AddToCartButton, ProductCard, Subscribe } from "../../components";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLoaderData } from "react-router-dom";
+import { ProductCard, Subscribe } from "../../components";
 import { useTitle } from "../../hooks";
+import { requestShop } from "../../utils/httpRequest";
+import { addItem } from "../../redux/cartSlice";
 import ProductReview from "./ProductReview";
-
+import { formattedSize, formattedUnitPrice } from "../../utils/formatter";
 const ProductDetail = () => {
   useTitle("Product");
   const { data: product } = useLoaderData();
-  const { name, description, images, unit_price, category } = product;
-
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    name,
+    description,
+    images,
+    unit_price: price,
+    category,
+    variants,
+  } = product;
   const [selectedTab, setSelectedTab] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [storedWl, setStoredWl] = useState(false);
+  const [size, setSize] = useState("");
+  const [chooseSize, setChooseSize] = useState("false");
+  const [color, setColor] = useState(0);
+  const [image, setImage] = useState(images[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [sameProducts, setSameProducts] = useState([]);
 
-  const [size, setSize] = useState(1);
-  const sizes = ["S", "M", "L", "XL", "2XL"];
-  const [color, setColor] = useState(1);
+  const sizes = formattedSize(variants);
 
-  const handleAddToCart = () => {};
-  const handleAddOne = () => {};
-  const handleRemoveOne = () => {};
-  const handleAddToWl = () => {};
-  const handleGoCart = () => {
-    navigate("/cart");
+  const handleChangeImage = (index) => {
+    setColor(index);
+    setImage(images[index]);
   };
+
+  const handleAddToCart = () => {
+    if (chooseSize === "false") {
+      setChooseSize(false);
+    } else {
+      dispatch(
+        addItem({
+          id: product.product_id,
+          name,
+          price,
+          image: image.imgUrl,
+          color: image.color,
+          size,
+          quantity,
+        })
+      );
+    }
+  };
+
+  const handleQuantity = (e) => {
+    e.preventDefault();
+    if (e.target.innerText === "-" && quantity > 1) {
+      setQuantity((preQuantity) => (preQuantity -= 1));
+    } else if (e.target.innerText === "+") {
+      setQuantity((preQuantity) => (preQuantity += 1));
+    } else return;
+  };
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const response = await requestShop.get("/products");
+      setSameProducts(response.data);
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <div>
       <section className="flex lg:flex-row flex-col gap-12">
         {/* Product Image */}
-        <div
-          className="lg:w-1/2 flex justify-center rounded-xl"
-          style={{ backgroundColor: "#eceff1", maxHeight: "600px" }}
-        >
+        <div className="lg:w-1/2 max-h-[600px] flex justify-center rounded-xl">
           <img
-            src={images[0].imgUrl}
+            src={image.imgUrl}
             alt=""
-            className="w-auto object-cover rounded-xl"
-            style={{ maxHeight: "600px" }}
+            className="w-auto object-cover max-h-[600px] rounded-xl"
           />
         </div>
 
         {/* Product Details */}
         <div className="lg:w-1/2 pt-4">
           <h1 className="text-3xl font-bold">{name}</h1>
-          <h3 className="text-4xl mt-6"> {unit_price}đ</h3>
-
-          <div className="flex flex-col mt-8 gap-8">
-            {/* PICK A SIZE */}
+          <h3 className="text-4xl mt-6">{formattedUnitPrice(price)}</h3>
+          <div className="flex flex-col mt-6 gap-6">
+            {/* SIZE */}
             <div>
-              <h2 className="text-md mb-2 textGradient font-bold">
-                Pick a Size
-              </h2>
-              <div className="flex gap-3">
-                {sizes.map((item, index) => {
-                  return (
-                    <span
-                      key={index}
-                      onClick={() => setSize(index + 1)}
-                      className={`hover:shadow-xl h-10 w-10 rounded-full flex items-center justify-center cursor-pointer ${
-                        size === index + 1
-                          ? "bg-secondary text-white"
-                          : "bg-[#E1EEDD]"
-                      }`}
-                    >
-                      {item}
-                    </span>
-                  );
-                })}
+              <h2 className="text-md mb-2 textGradient font-bold">Size</h2>
+              <div
+                className={`inline-block p-2 ${
+                  !chooseSize && "rounded-lg border-2 border-error"
+                }`}
+              >
+                <ul className="flex gap-3">
+                  {sizes.map((item) => {
+                    return (
+                      <li
+                        key={item}
+                        onClick={() => {
+                          setSize(item);
+                          setChooseSize(true);
+                        }}
+                        className={`hover:shadow-xl transition  h-10 w-10 rounded-full flex items-center justify-center cursor-pointer ${
+                          size === item
+                            ? "bg-secondary text-white"
+                            : "bg-[#E1EEDD]"
+                        }`}
+                      >
+                        {item}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
 
-            {/* CHOOSE COLORS */}
+            {/* COLORS */}
             <div>
               <h2 className="text-md mb-2 textGradient font-bold">
-                Choose Color
+                Color: {image.color}
               </h2>
               <div className="flex gap-3">
-                <span
-                  onClick={() => setColor(1)}
-                  className={`h-8 w-8 bg-primary rounded-full border-[3px] cursor-pointer ${
-                    color === 1 && "border-[#F7C04A]"
-                  }`}
-                ></span>
-                <span
-                  onClick={() => setColor(2)}
-                  className={`h-8 w-8 bg-[#222] rounded-full border-[3px] cursor-pointer ${
-                    color === 2 && "border-[#F7C04A]"
-                  }`}
-                ></span>
+                {images.map((img, index) => (
+                  <div key={index} className="avatar">
+                    <div
+                      onClick={() => handleChangeImage(index)}
+                      className={`cursor-pointer ${
+                        index === color && "border-primary"
+                      } border-[2px]   hover:border-primary w-10 mr-3 rounded`}
+                    >
+                      <img src={img.imgUrl} />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Add to Cart */}
-          {!added ? (
-            <div className="flex items-center gap-4 mt-10">
-              <AddToCartButton handleAddToCart={handleAddToCart} />
-              <span
-                data-tip={
-                  !storedWl ? "add to wishlist" : "remove from wishlist"
-                }
-                onClick={handleAddToWl}
-                className="bg-white p-[10px] rounded-md flex justify-center items-center cursor-pointer tooltip tooltip-success"
-              >
-                <lord-icon
-                  target="span"
-                  src={
-                    !storedWl
-                      ? "https://cdn.lordicon.com/pnhskdva.json"
-                      : "https://cdn.lordicon.com/xryjrepg.json"
-                  }
-                  trigger="hover"
-                  colors="primary:#ee6d66"
-                  style={{ width: "30px", height: "30px" }}
-                ></lord-icon>
-              </span>
-            </div>
-          ) : (
-            <div className="flex items-center lg:gap-12 gap-6 mt-10">
-              {/* Add More Button */}
-              <div className="flex items-center gap-3">
-                <button
-                  className="btn lg:btn-md btn-sm rounded-sm btn-error text-white"
-                  disabled={quantity <= 1}
-                  onClick={handleRemoveOne}
-                >
-                  <IoMdRemove />
-                </button>
-                <h4>{quantity}</h4>
-                <button
-                  className="btn lg:btn-md btn-sm rounded-sm text-white border-none"
-                  style={{ backgroundColor: "#16c79e" }}
-                  onClick={handleAddOne}
-                >
-                  <IoMdAdd />
-                </button>
-              </div>
+          <div className="flex items-center gap-4 mt-10">
+            <div className="btn-group items-center gap-3">
               <button
-                onClick={handleGoCart}
-                className="btn lg:btn-md btn-sm lg:btn-wide lg:px-0 px-4 normal-case text-white lg:rounded-md rounded-sm"
+                onClick={handleQuantity}
+                className="btn btn-outline md:btn-md md:text-2xl md:min-w-[50px] text-xl  btn-sm "
               >
-                <lord-icon
-                  target="button"
-                  src="https://cdn.lordicon.com/medpcfcy.json"
-                  trigger="hover"
-                  colors="primary:#fff"
-                  style={{ width: "25px", height: "25px" }}
-                ></lord-icon>
-                &nbsp; Go to Cart
+                -
+              </button>
+              <h1>{quantity}</h1>
+              <button
+                onClick={handleQuantity}
+                className="btn btn-outline md:btn-md md:text-2xl md:min-w-[50px] text-xl btn-sm "
+              >
+                +
               </button>
             </div>
-          )}
+
+            <button
+              onClick={handleAddToCart}
+              className="btn btn-primary hover:opacity-80 btn-sm md:btn-md md:w-48 hover:text-white rounded-md normal-case text-white"
+            >
+              <lord-icon
+                target="button"
+                src="https://cdn.lordicon.com/hyhnpiza.json"
+                trigger="hover"
+                colors="primary:#ffffff"
+                style={{ width: "25px", height: "25px" }}
+              ></lord-icon>
+              {size ? "Add to Cart" : "Choose Size"}
+            </button>
+          </div>
 
           {/* Tabs */}
           <div className="mt-10 tabs">
@@ -223,19 +240,19 @@ const ProductDetail = () => {
       </section>
 
       {/* SIMILAR PRODUCTS */}
-      {/* <section className="my-32">
+      <section className="my-32">
         <h2 className="text-2xl font-bold textGradient mb-8">
           Similar Products
         </h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
-          {products
-            ?.filter((p) => p.category === category)
-            .slice(0, 4)
+          {sameProducts
+            // ?.filter((p) => p.category === category)
+            // .slice(0, 4)
             .map((item, index) => (
               <ProductCard key={index} data={item} />
             ))}
         </div>
-      </section> */}
+      </section>
 
       {/* GET COUPON */}
       <Subscribe />

@@ -58,11 +58,4 @@ const Customer = sequelize.define("customer", {
   },
 });
 
-// User.sync({ alter: true })
-//   .then(() => {
-//     console.log("User table created successfully");
-//   })
-//   .catch((error) => {
-//     console.error("Error creating user table:", error);
-//   });
 module.exports = Customer;
