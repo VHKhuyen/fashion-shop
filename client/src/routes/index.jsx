@@ -9,7 +9,7 @@ import {
   ProductPage,
   StoreLocation,
   Contact,
-  Cart,
+  CartPage,
   Wishlist,
   ErrorPage,
 } from "../pages";
@@ -50,7 +50,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: <CartPage />,
       },
       {
         path: "/login",

@@ -44,7 +44,7 @@ const Contact = () => {
               placeholder="Your Message"
               required
             ></textarea>
-            <button className="btn btn-primary btn-wide normal-case text-white mt-8 lg:mx-0 mx-auto flex items-center gap-2">
+            <button className="btn btn-primary opacity-80 btn-wide normal-case text-white mt-8 lg:mx-0 mx-auto flex items-center gap-2">
               Send Message
               <lord-icon
                 target="button"

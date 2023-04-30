@@ -44,7 +44,7 @@ const Footer = () => {
   };
   return (
     <footer className="mt-16">
-      <section className="grid lg:grid-cols-4 grid-cols-2 mb-4 pt-12">
+      <section className="grid gap-3 lg:grid-cols-4 grid-cols-2 mb-4 pt-12">
         <div>
           <Logo />
           <h2 className="uppercase mt-3 text-sm lg:tracking-[4px] tracking-[1px]">
@@ -56,7 +56,7 @@ const Footer = () => {
         <div className="text-sm">
           <h2 className="mb-2 font-bold">Reach Out to us</h2>
           <span className="flex items-center gap-2 mb-[5px]">
-            <HiOutlineMail /> shop@fashion.com
+            <HiOutlineMail /> jentashop@gmail.com
           </span>
           <span className="flex items-center gap-2 mb-[5px]">
             <HiOutlinePhone /> +99012345{" "}
@@ -66,7 +66,7 @@ const Footer = () => {
       <hr />
       <section className="py-5 flex justify-between">
         <div className="lg:text-md md:text-sm text-xs">
-          All rights reserved to Fashionista &copy; {new Date().getFullYear()}
+          All rights reserved to Jenta &copy; {new Date().getFullYear()}
         </div>
         <div className="flex items-center gap-5 lg:text-xl md:text-lg text-md">
           <a href="https://facebook.com/" target="_blank" rel="noreferrer">

@@ -1,8 +1,8 @@
-const PrimaryButton = ({ children, eventHandler }) => {
+const PrimaryButton = ({ children, eventHandler, className }) => {
   return (
     <button
       onClick={eventHandler}
-      className="btn btn-primary hover:opacity-80 lg:btn-md md:btn-md btn-sm text-white normal-case lg:px-8 md:px-8 px-5 rounded-md border-none"
+      className={`btn btn-primary hover:opacity-80 lg:btn-md md:btn-md btn-sm text-white normal-case lg:px-8 md:px-8 px-5 rounded-md border-none ${className}`}
     >
       {children} &nbsp;
       <lord-icon

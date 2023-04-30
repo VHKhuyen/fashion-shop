@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
 import { SeeMore } from "../../components";
 import { ListProductSlider } from "../../components";
-import { products } from "../../data";
+import { requestShop } from "../../utils/httpRequest";
 
 const Popular = () => {
+  const [products, setProducts] = useState([]);
+  const fetchProducts = async () => {
+    try {
+      const response = await requestShop.get("/products");
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <section>
       <div className="mb-8">

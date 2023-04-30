@@ -1,39 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "../../assets/styles/cart.css";
 import { formattedUnitPrice } from "../../utils/formatter";
+import "../../assets/styles/style.css";
 
 const ProductCard = ({ data }) => {
   const { product_id, name, unit_price: price, images } = data;
-  const [image, setImage] = useState("");
-  const [color, setColor] = useState(0);
+  const [image, setImage] = useState(images[0].imgUrl);
+  const [color, setColor] = useState(images[0].img_id);
 
-  const handleChangeImage = (index) => {
-    setColor(index);
-    setImage(images[index]);
+  const handleChangeImage = (id, imgUrl) => {
+    setColor(id);
+    setImage(imgUrl);
   };
 
   return (
     <div
-      className="rounded-lg cart-card transition duration-300 hover:text-[#222] "
+      className="cart-card transition duration-300 hover:text-[#222] "
       data-aos="fade-up"
     >
-      <div className=" w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
+      <div className="productImg relative rounded-lg max-h-80 w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
         <Link to={`/products/${product_id}`}>
-          <img
-            src={image.imgUrl || images[0].imgUrl}
-            alt=""
-            className="h-auto max-w-full object-cover rounded-t-lg productImg"
-          />
+          <img src={image} alt="" />
         </Link>
       </div>
       <div>
-        <h3 className="lg:text-base h-12 hover:text-primary  md:text-lg text-sm leading-[18px]">
+        <h3 className="lg:text-base h-12 md:text-lg text-sm leading-[18px]">
           <Link
-            className="text-[16px] leading-[16px] capitalize"
+            className="text-[16px] leading-[16px] capitalize hover:text-primary"
             to={`/products/${product_id}`}
           >
-            {name.toLowerCase()}
+            {name}
           </Link>
         </h3>
         <div className="mb-[7px]">
@@ -42,12 +38,12 @@ const ProductCard = ({ data }) => {
           </span>
         </div>
         <div>
-          {images.map((img, index) => (
-            <div key={index} className="avatar ">
+          {images.map((img) => (
+            <div key={img.img_id} className="avatar">
               <div
-                onClick={() => handleChangeImage(index)}
+                onClick={() => handleChangeImage(img.img_id, img.imgUrl)}
                 className={`cursor-pointer ${
-                  index === color && "border-primary"
+                  img.img_id === color && "border-primary"
                 } border-[1px] hover:border-primary w-8 mr-3 rounded-full`}
               >
                 <img src={img.imgUrl} />

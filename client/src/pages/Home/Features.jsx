@@ -4,17 +4,17 @@ const features = [
   {
     name: "Free Delivery",
     image: "https://cdn.lordicon.com/iejknaed.json",
-    description: "Get Free Delivery to anywhere in the country",
+    description: "Free shipping for orders over 200k.",
   },
   {
-    name: "90 Days Return",
+    name: "60 Days Return",
     image: "https://cdn.lordicon.com/pimvysaa.json",
-    description: "Return your products within 90 Days",
+    description: "60 days return for any reason",
   },
   {
-    name: "Secure Payment",
+    name: "Refund Payment",
     image: "https://cdn.lordicon.com/nrzqxhfu.json",
-    description: "Payment through Card or Bkash, Nogod",
+    description: "Refund within 24 hours.",
   },
   {
     name: "24/7 Support",

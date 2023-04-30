@@ -4,29 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { cartSelector } from "../redux/selector";
 import { useTitle } from "../hooks";
-import { SectionHeader, NoItemsFound } from "../components";
-import { formattedUnitPrice } from "../utils/formatter";
-import { removeItem, decrQuantity, incrQuantity } from "../redux/cartSlice";
+import { SectionHeader, NoItemsFound, PrimaryButton } from "../components";
+import { formattedUnitPrice, calculateTotalPrice } from "../utils/formatter";
+import { decrQuantity, incrQuantity } from "../redux/cartSlice";
+import { open } from "../redux/modalConfirmSlice";
 
 const Cart = () => {
-  useTitle("Your Cart");
+  useTitle("Cart");
 
-  const [modelRemoveItem, setModelRemoveItem] = useState({
-    status: false,
-    item: null,
-  });
   const { cartItems } = useSelector(cartSelector);
   const dispatch = useDispatch();
-
-  const calculateTotalPrice = (products) => {
-    let totalPrice = 0;
-    for (let i = 0; i < products.length; i++) {
-      const product = products[i];
-      totalPrice += product.quantity * product.price;
-    }
-    return totalPrice;
-  };
-  const totalPrice = calculateTotalPrice(cartItems);
 
   const handleDecrItem = (item) => {
     const { id, color, size } = item;
@@ -34,7 +21,7 @@ const Cart = () => {
       (p) => p.id === id && p.color === color && p.size === size
     );
     if (cartItem.quantity < 2) {
-      return setModelRemoveItem({ status: true, item: item });
+      return dispatch(open({ status: true, item: item }));
     }
     dispatch(decrQuantity({ id: item.id, color: item.color, size: item.size }));
   };
@@ -48,46 +35,6 @@ const Cart = () => {
   return (
     <>
       <SectionHeader>Your Cart</SectionHeader>
-
-      <div
-        className={`modal ${
-          modelRemoveItem.status && "visible opacity-100 pointer-events-auto"
-        }`}
-      >
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Are you sure you want to delete this product?
-          </h3>
-          <p className="py-4">{modelRemoveItem.item?.name}</p>
-          <div className="modal-action">
-            <button
-              onClick={() => {
-                dispatch(removeItem(modelRemoveItem.item));
-                setModelRemoveItem({
-                  ...modelRemoveItem,
-                  status: false,
-                  item: null,
-                });
-              }}
-              className="btn btn-primary text-white"
-            >
-              Remove
-            </button>
-            <button
-              onClick={() => {
-                setModelRemoveItem({
-                  ...modelRemoveItem,
-                  status: false,
-                  item: null,
-                });
-              }}
-              className="btn btn-outline"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
       {cartItems.length > 0 ? (
         <div className="  flex flex-col xl:flex-row gap-4">
           <div
@@ -126,7 +73,7 @@ const Cart = () => {
                             {item.name}
                           </Link>
                           <div className="text-sm  sm:mt-5">
-                            <p>Size:{item.size}</p>
+                            <p>Size: {item.size}</p>
                             <p>Colors: {item.color}</p>
                             <p className="md:hidden">
                               {formattedUnitPrice(item.price)}
@@ -161,11 +108,12 @@ const Cart = () => {
                       <div className="flex flex-col items-center">
                         <button
                           onClick={() =>
-                            setModelRemoveItem({
-                              ...modelRemoveItem,
-                              status: true,
-                              item: item,
-                            })
+                            dispatch(
+                              open({
+                                status: true,
+                                item: item,
+                              })
+                            )
                           }
                           className="h-6 w-6"
                         >
@@ -209,22 +157,15 @@ const Cart = () => {
             <div className="flex justify-between items-end">
               <span className="text-xl">Subtotal</span>
               <h2 className="text-xl font-semibold">
-                {formattedUnitPrice(totalPrice)}
+                {formattedUnitPrice(calculateTotalPrice(cartItems))}
               </h2>
             </div>
-            <button
-              onClick={handleCheckout}
-              className="btn btn-primary hover:opacity-80 w-full mt-12 text-white "
+            <PrimaryButton
+              className="w-full mt-12"
+              eventHandler={handleCheckout}
             >
-              Checkout &emsp;
-              <lord-icon
-                target="button"
-                src="https://cdn.lordicon.com/zmkotitn.json"
-                trigger="hover"
-                colors="primary:#ffffff"
-                style={{ width: "20px", height: "20px" }}
-              ></lord-icon>
-            </button>
+              Checkout
+            </PrimaryButton>
           </div>
         </div>
       ) : (

@@ -1,6 +1,6 @@
-import { requestShop } from "../../utils/httpRequest";
 import { useEffect, useState } from "react";
 import { BsFilterSquare } from "react-icons/bs";
+import { requestShop } from "../../utils/httpRequest";
 import { ProductCard } from "../../components";
 import { useTitle } from "../../hooks";
 import { priceRanges, sizes } from "../../data";
@@ -137,8 +137,8 @@ const Products = () => {
           ))}
         </ul>
         <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-5">
-          {selectedProduct?.map((item, index) => (
-            <div key={index}>
+          {selectedProduct?.map((item) => (
+            <div key={item.product_id}>
               <ProductCard data={item} />
             </div>
           ))}

@@ -7,13 +7,11 @@ import { NextArrow, PrevArrow } from "../../components/Slider/Arrow";
 const ListProductSlider = ({ products }) => {
   var settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 4,
     slidesToScroll: 4,
-    // autoplay: true,
-    speed: 500,
-    autoplaySpeed: 5000,
-    pauseOnHover: false,
+    speed: 400,
+    swipe: false,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [

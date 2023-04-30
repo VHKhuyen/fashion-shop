@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
 import { ListProductSlider } from "../../components";
 import { SeeMore } from "../../components";
-import { products } from "../../data";
+import { requestShop } from "../../utils/httpRequest";
 
 const HotDeals = () => {
+  const [products, setProducts] = useState([]);
+  const fetchProducts = async () => {
+    try {
+      const response = await requestShop.get("/products");
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <section>
       <div className="mb-8">
@@ -16,7 +31,7 @@ const HotDeals = () => {
         </div>
       </div>
       <ListProductSlider products={products} />
-      <SeeMore to="/product" />
+      <SeeMore to="/products" />
     </section>
   );
 };

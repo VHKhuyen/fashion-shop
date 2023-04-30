@@ -18,7 +18,7 @@ class ProductController {
           {
             model: ProductImg,
             as: "images",
-            attributes: ["imgUrl", "color"],
+            attributes: ["img_id", "imgUrl", "color"],
           },
           {
             model: ProductVariant,
@@ -98,7 +98,7 @@ class ProductController {
           {
             model: ProductImg,
             as: "images",
-            attributes: ["imgUrl", "color"],
+            attributes: ["img_id", "imgUrl", "color"],
           },
           {
             model: ProductVariant,

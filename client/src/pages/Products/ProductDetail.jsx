@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { ProductCard, Subscribe } from "../../components";
 import { useTitle } from "../../hooks";
 import { requestShop } from "../../utils/httpRequest";
 import { addItem } from "../../redux/cartSlice";
 import ProductReview from "./ProductReview";
 import { formattedSize, formattedUnitPrice } from "../../utils/formatter";
+import { AddedCard } from "../../components";
+
 const ProductDetail = () => {
   useTitle("Product");
-  const { data: product } = useLoaderData();
+
   const dispatch = useDispatch();
+  const { data: product } = useLoaderData();
   const {
     name,
     description,
@@ -19,6 +23,7 @@ const ProductDetail = () => {
     category,
     variants,
   } = product;
+
   const [selectedTab, setSelectedTab] = useState(1);
   const [size, setSize] = useState("");
   const [chooseSize, setChooseSize] = useState("false");
@@ -49,6 +54,26 @@ const ProductDetail = () => {
           quantity,
         })
       );
+      toast.custom(
+        (t) => (
+          <AddedCard
+            {...{
+              id: product.product_id,
+              name,
+              price,
+              image: image.imgUrl,
+              color: image.color,
+              size,
+              quantity,
+            }}
+            t={t}
+          />
+        ),
+        {
+          duration: 3000,
+          position: "top-right",
+        }
+      );
     }
   };
 
@@ -68,7 +93,6 @@ const ProductDetail = () => {
     }
     fetchProducts();
   }, []);
-
   return (
     <div>
       <section className="flex lg:flex-row flex-col gap-12">
