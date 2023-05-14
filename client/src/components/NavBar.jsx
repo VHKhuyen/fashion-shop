@@ -32,13 +32,9 @@ function Navbar() {
       const result = await dispatch(fetchLogout());
       toast.remove(toastId);
       if (result.payload?.success) {
-        toast.success(`${result.payload?.message}`, {
-          onClose: setTimeout(() => {
-            navigate("/");
-          }, 1.5 * 1000),
+        setTimeout(() => {
+          navigate("/");
         });
-      } else if (result.payload?.success == false) {
-        toast.error(`${result.payload?.message}`);
       } else {
         toast.error("Something wrong!");
       }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PrimaryButton } from "../index";
+import { banner1, banner2, banner3, banner4 } from "../../assets/images";
 import "./HeroCarousel.css";
 
 const content = [
@@ -8,26 +9,23 @@ const content = [
     title: "Royal Vibe",
     description:
       "You one stop place to Shop with Confidence. Shopping is Easy!",
-    image: "https://aaatap.com/merchant/assets/img/shopping_model.png",
+    image: banner1,
   },
   {
     title: "Elegant Styles",
     description: "We are offering the Fashion That Fits You Best. Grab Now!",
-    image:
-      "https://www.seekpng.com/png/full/858-8584137_fashion-forward-episodes-offers-fashion.png",
+    image: banner2,
   },
   {
     title: "Comfort Fasion",
     description:
       "Elevate Your Style with our brand new products, Purchase Today!",
-    image:
-      "https://images.pngnice.com/download/2113/Excited-Girl-Holding-Shopping-Bag-Transparent-PNG.png",
+    image: banner3,
   },
   {
     title: "Stylish Look",
     description: "Remarks the landmark of Always On Trend courtesy, Hurry Up!",
-    image:
-      "https://www.pngall.com/wp-content/uploads/5/Attractive-Model-Man-PNG-Picture.png",
+    image: banner4,
   },
 ];
 

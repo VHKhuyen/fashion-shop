@@ -10,7 +10,7 @@ const Cart = () => {
   const { cartItems } = useSelector(cartSelector);
 
   return (
-    <section className="cart w-[450px] ">
+    <section className="cart w-[400px] ">
       <div className="cart max-h-[320px] overflow-y-auto ">
         {cartItems?.length ? (
           cartItems?.map((item, index) => (
@@ -30,16 +30,18 @@ const Cart = () => {
               {formattedUnitPrice(calculateTotalPrice(cartItems))}
             </h2>
           </div>
-          <button className="btn btn-primary normal-case text-white hover:opacity-80 w-full ">
-            <lord-icon
-              target="button"
-              src="https://cdn.lordicon.com/medpcfcy.json"
-              trigger="hover"
-              class="current-color"
-              style={{ width: "25px", height: "25px" }}
-            ></lord-icon>
-            &nbsp; Go to Cart
-          </button>
+          <Link to="/cart">
+            <button className="btn btn-primary normal-case text-white hover:opacity-80 w-full ">
+              <lord-icon
+                target="button"
+                src="https://cdn.lordicon.com/medpcfcy.json"
+                trigger="hover"
+                class="current-color"
+                style={{ width: "25px", height: "25px" }}
+              ></lord-icon>
+              &nbsp; Go to Cart
+            </button>
+          </Link>
         </>
       ) : (
         <div className="flex flex-col items-center">

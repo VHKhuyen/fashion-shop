@@ -6,7 +6,7 @@ import ModalConfirm from "../components/Modal/modalConfirm";
 const Main = () => {
   return (
     <section className="mx-auto max-w-[1264px] px-4">
-      <Toaster />
+      <Toaster containerClassName="mx-auto max-w-[1264px]" />
       <ModalConfirm />
       <Navbar />
       <div className="pt-20">

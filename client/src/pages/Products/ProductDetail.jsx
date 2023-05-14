@@ -93,6 +93,7 @@ const ProductDetail = () => {
     }
     fetchProducts();
   }, []);
+
   return (
     <div>
       <section className="flex lg:flex-row flex-col gap-12">
