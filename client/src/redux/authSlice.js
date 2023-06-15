@@ -1,4 +1,4 @@
-import axios from "axios";
+import { requestShop } from "../utils/httpRequest";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const userJSON = localStorage.getItem("user");
 const currentUser = userJSON ? JSON.parse(userJSON) : null;
@@ -59,10 +59,7 @@ export const fetchRegister = createAsyncThunk(
   "auth/fetchRegister",
   async (valueForm, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/register",
-        valueForm
-      );
+      const response = await requestShop.post("/auth/register", valueForm);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -74,13 +71,9 @@ export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
   async (valueForm, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/auth/login",
-        valueForm,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await requestShop.post("/auth/login", valueForm, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -90,12 +83,9 @@ export const fetchLogin = createAsyncThunk(
 
 export const fetchLogout = createAsyncThunk("auth/fetchLogout", async () => {
   try {
-    const response = await axios.get(
-      "http://localhost:8000/api/v1/auth/logout",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await requestShop.get("/auth/logout", {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     return error.response.data;

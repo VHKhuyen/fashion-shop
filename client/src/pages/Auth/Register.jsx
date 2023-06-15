@@ -26,7 +26,7 @@ const Register = () => {
     if (result.payload?.success) {
       toast.success("Register successfully!", {
         onClose: setTimeout(() => {
-          navigate("/login");
+          navigate("/");
         }, 1.5 * 1000),
       });
     } else if (result.payload?.success == false) {
@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <section className=" w-full flex items-center justify-center">
+    <section className="w-full flex items-center justify-center">
       <div
         className="flex flex-row-reverse rounded-lg bg-white shadow-lg h-[450px] w-[700px]"
         data-aos="flip-right"

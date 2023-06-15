@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTitle } from "../hooks";
-import axios from "axios";
+import { requestShop } from "../utils/httpRequest";
 
 const StoreLocation = () => {
   useTitle("Stores");
@@ -10,9 +10,7 @@ const StoreLocation = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storesData = await axios.get(
-          "http://localhost:8000/api/v1/stores"
-        );
+        const storesData = await requestShop.get("/stores");
         setStores(storesData.data);
       } catch (error) {
         console.error(error);
