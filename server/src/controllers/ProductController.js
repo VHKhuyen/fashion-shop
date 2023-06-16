@@ -1,11 +1,22 @@
-const {
-  Product,
-  Category,
-  ProductImg,
-  ProductVariant,
-} = require("../models/product");
+const { Sequelize } = require("sequelize");
+const { Product, Category, ProductImg, ProductVariant } = require("../models");
+const { Ok } = require("../core/success.response");
 
 class ProductController {
+  async searchProduct(req, res) {
+    const { keySearch } = req.params;
+    const products = await Product.findAll({
+      where: Sequelize.literal(
+        `MATCH (name, product_slug) AGAINST (:keySearch)`
+      ),
+      replacements: { keySearch },
+    });
+    new Ok({
+      message: "get list product success!",
+      metadata: products,
+    }).send(res);
+  }
+
   async getAllProduct(req, res) {
     try {
       const products = await Product.findAll({
@@ -23,13 +34,14 @@ class ProductController {
           {
             model: ProductVariant,
             as: "variants",
-            attributes: ["color", "size", "quantity_in_stock"],
+            attributes: ["color", "size", "quantity"],
           },
         ],
         order: [
           ["images", "img_id", "asc"],
           ["variants", "product_variants_id", "ASC"],
         ],
+        limit: 50,
       });
 
       res.status(200).json(products);
@@ -103,7 +115,7 @@ class ProductController {
           {
             model: ProductVariant,
             as: "variants",
-            attributes: ["color", "size", "quantity_in_stock"],
+            attributes: ["color", "size", "quantity"],
           },
         ],
       });
@@ -162,7 +174,7 @@ class ProductController {
         await ProductVariant.create({
           color: variant.color,
           size: variant.size,
-          quantity_in_stock: variant.quantityInStock,
+          quantity: variant.quantityInStock,
           product_id: product.product_id,
         });
       }
@@ -200,21 +212,5 @@ class ProductController {
       return res.status(500).json({ message: "Failed to update product" });
     }
   }
-
-  async deleteProduct(req, res) {
-    const { id } = req.params;
-    try {
-      const product = await Product.findOne({ where: { product_id: id } });
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      await product.destroy();
-      return res.status(200).json({ message: "Product deleted successfully" });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Failed to delete product" });
-    }
-  }
 }
-
 module.exports = new ProductController();

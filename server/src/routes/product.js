@@ -1,13 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const ProductController = require("../app/controllers/ProductController");
+const ProductController = require("../controllers/ProductController");
+const { asyncHandler } = require("../helpers/asyncHandler");
+const { authentication } = require("../auth/authUtils");
 
 router
-  .get("/", ProductController.getAllProduct)
-  .get("/:id", ProductController.getById)
-  .get("/:category", ProductController.getByCategory)
-  .post("/", ProductController.createProduct);
+  .get("/", asyncHandler(ProductController.getAllProduct))
+  .get("/:id", asyncHandler(ProductController.getById))
+  .get("/:category", asyncHandler(ProductController.getByCategory));
+
+//check authentication
+router.use(authentication);
 router
-  .put("/:id", ProductController.updateProduct)
-  .delete("/:id", ProductController.deleteProduct);
+  .post("/", asyncHandler(ProductController.createProduct))
+  .put("/:id", asyncHandler(ProductController.updateProduct))
+  .delete("/:id", asyncHandler(ProductController.deleteProduct));
 module.exports = router;

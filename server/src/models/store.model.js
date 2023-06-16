@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../config/db");
+const sequelize = require("../db/init.mysql");
 
 const Store = sequelize.define("store", {
   store_id: {
@@ -23,7 +23,6 @@ const Store = sequelize.define("store", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   manager: {
     type: DataTypes.INTEGER,
@@ -57,4 +56,4 @@ const Store = sequelize.define("store", {
   },
 });
 
-module.exports = Store;
+module.exports = { Store };

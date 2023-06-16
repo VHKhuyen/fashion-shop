@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const SequelizeSlugify = require("sequelize-slugify");
-const sequelize = require("../../config/db");
+const sequelize = require("../db/init.mysql");
 
 const Category = sequelize.define(
   "Category",
@@ -15,11 +15,11 @@ const Category = sequelize.define(
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
     },
     slug: {
       type: DataTypes.STRING,
-      unique: true,
+      allowNull: false,
     },
   },
   {
@@ -47,11 +47,15 @@ const Product = sequelize.define(
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    product_slug: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     unit_price: {
-      type: DataTypes.DECIMAL(10, 2),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     quantity_in_stock: {
@@ -62,9 +66,14 @@ const Product = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "category",
+        model: "categories",
         key: "category_id",
       },
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 4.5,
+      set: (val) => Math.round(val * 10) / 10,
     },
   },
   {
@@ -72,6 +81,12 @@ const Product = sequelize.define(
     timestamps: false,
   }
 );
+SequelizeSlugify.slugifyModel(Product, {
+  source: ["name"],
+  slugOptions: { lower: true },
+  overwrite: false,
+  column: "product_slug",
+});
 
 const ProductVariant = sequelize.define(
   "ProductVariant",
@@ -97,7 +112,7 @@ const ProductVariant = sequelize.define(
       type: DataTypes.STRING(10),
       allowNull: false,
     },
-    quantity_in_stock: {
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -139,15 +154,9 @@ const ProductImg = sequelize.define(
   }
 );
 
-Product.hasMany(ProductImg, { foreignKey: "product_id", as: "images" });
-
-Product.hasMany(ProductVariant, {
-  foreignKey: "product_id",
-  as: "variants",
-});
-
-Product.belongsTo(Category, {
-  foreignKey: "category_id",
-  as: "category",
-});
-module.exports = { Category, Product, ProductImg, ProductVariant };
+module.exports = {
+  Category,
+  Product,
+  ProductImg,
+  ProductVariant,
+};

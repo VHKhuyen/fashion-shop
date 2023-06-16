@@ -1,13 +1,17 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const cookieParser = require("cookie-parser");
-const route = require("./routes");
-const { notFound, errorHandler } = require("./middleware/error-handler");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const compression = require("compression");
+const routes = require("./routes");
 const app = express();
 
-app.use(cookieParser());
+app.use(morgan("dev"));
+app.use(helmet());
+app.use(compression());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
@@ -15,11 +19,24 @@ app.use(
   })
 );
 
-route(app);
+// router
+routes(app);
 
-app.use(notFound);
-app.use(errorHandler);
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`Listening on port ${port}...`);
+// Handing error
+
+app.use((req, res, next) => {
+  const error = new Error("Not found!");
+  error.status = 404;
+  next(error);
 });
+
+app.use((error, req, res, next) => {
+  const statusCode = error.status || 500;
+  return res.status(statusCode).json({
+    status: "error",
+    code: statusCode,
+    message: error.message || "Internal Server Error!",
+  });
+});
+
+module.exports = app;
