@@ -24,3 +24,4 @@ export { default as HeroCarousel } from "./Carousels/HeroCarousel";
 export { default as NewArrivalSlider } from "./Slider/NewArrivalSlider";
 export { default as PromotionSlider } from "./Slider/PromotionSlider";
 export { default as ListProductSlider } from "./Slider/ListProductSlider";
+export { default as ModalConfirm } from "./Modal/ModalConfirm";
