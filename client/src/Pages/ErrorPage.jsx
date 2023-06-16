@@ -1,9 +1,6 @@
-import { Link, useRouteError } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PrimaryButton } from "../components";
 function ErrorPage() {
-  const error = useRouteError();
-  console.error(error);
-
   return (
     <div className="grid h-screen px-4 bg-white place-content-center">
       <div className="text-center">
