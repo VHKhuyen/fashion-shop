@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function SeeMore({ to }) {
+const SeeMore = ({ to }) => {
   return (
     <div className="flex items-center justify-end mt-8">
       <Link to={to} className="cursor-pointer flex items-center gap-2">
@@ -17,6 +17,6 @@ function SeeMore({ to }) {
       </Link>
     </div>
   );
-}
+};
 
 export default SeeMore;

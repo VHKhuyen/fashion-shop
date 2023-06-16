@@ -12,7 +12,7 @@ import { fetchLogout } from "../redux/authSlice";
 import { calculateTotalQty } from "../utils/formatter";
 import Cart from "./Cart";
 
-function Navbar() {
+const Navbar = () => {
   const { currentUser } = useSelector(authSelector);
   const { cartItems } = useSelector(cartSelector);
 
@@ -227,6 +227,6 @@ function Navbar() {
       </div>
     </section>
   );
-}
+};
 
 export default Navbar;

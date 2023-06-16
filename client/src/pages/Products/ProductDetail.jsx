@@ -87,10 +87,10 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    async function fetchProducts() {
+    const fetchProducts = async () => {
       const response = await requestShop.get("/products");
       setSameProducts(response.data);
-    }
+    };
     fetchProducts();
   }, []);
 

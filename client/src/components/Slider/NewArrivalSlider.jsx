@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { requestShop } from "../../utils/httpRequest";
 const productsBg = ["#F0997D", "#F7E2D6", "#D7E9B9", "#FFE7CC", "#CEE5D0"];
 
-function NextArrow(props) {
+const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -15,9 +15,9 @@ function NextArrow(props) {
       onClick={onClick}
     />
   );
-}
+};
 
-function PrevArrow(props) {
+const PrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -26,8 +26,8 @@ function PrevArrow(props) {
       onClick={onClick}
     />
   );
-}
-export default function NewArrivalSlider() {
+};
+const NewArrivalSlider = () => {
   var settings = {
     dots: false,
     infinite: true,
@@ -89,4 +89,5 @@ export default function NewArrivalSlider() {
       ))}
     </Slider>
   );
-}
+};
+export default NewArrivalSlider;
