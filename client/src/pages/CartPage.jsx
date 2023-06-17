@@ -10,7 +10,7 @@ import { decrQuantity, incrQuantity } from "../redux/cartSlice";
 import { open } from "../redux/modalConfirmSlice";
 
 const Cart = () => {
-  useTitle("Cart");
+  useTitle("Giỏ hàng");
 
   const { cartItems } = useSelector(cartSelector);
   const dispatch = useDispatch();
@@ -34,20 +34,17 @@ const Cart = () => {
 
   return (
     <>
-      <SectionHeader>Your Cart</SectionHeader>
+      <SectionHeader>Giỏ hàng</SectionHeader>
       {cartItems.length > 0 ? (
         <div className="  flex flex-col xl:flex-row gap-4">
-          <div
-            className="overflow-x-auto rounded-lg sticky w-full xl:w-4/6 bg-white"
-            data-aos="fade-up"
-          >
+          <div className="overflow-x-auto rounded-lg sticky w-full xl:w-4/6 bg-white">
             <table className="table w-full">
               <thead className="hidden md:table-header-group">
                 <tr className="text-lg">
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Action</th>
+                  <th>Sản phẩm</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
+                  <th>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -150,12 +147,9 @@ const Cart = () => {
               </tbody>
             </table>
           </div>
-          <div
-            className="h-max w-full sticky top-16 z-[2] xl:w-2/6 p-10 bg-white rounded-xl shadow-md"
-            data-aos="fade-up"
-          >
+          <div className="h-max w-full sticky top-16 z-[2] xl:w-2/6 p-10 bg-white rounded-xl shadow-md">
             <div className="flex justify-between items-end">
-              <span className="text-xl">Subtotal</span>
+              <span className="text-xl">Tổng cộng </span>
               <h2 className="text-xl font-semibold">
                 {formattedUnitPrice(calculateTotalPrice(cartItems))}
               </h2>
@@ -164,12 +158,12 @@ const Cart = () => {
               className="w-full mt-12"
               eventHandler={handleCheckout}
             >
-              Checkout
+              Thanh toán
             </PrimaryButton>
           </div>
         </div>
       ) : (
-        <NoItemsFound where={"Cart"} />
+        <NoItemsFound where={"Giỏ hàng"} />
       )}
     </>
   );

@@ -6,16 +6,16 @@ import { Logo } from "../components";
 
 const Footer = () => {
   const navItems1 = [
-    { name: "Products", path: "/products" },
-    { name: "Store Location", path: "/stores" },
-    { name: "Contact", path: "/contact" },
-    { name: "Login", path: "/login" },
-    { name: "Register", path: "/register" },
+    { name: "Sản phẩm", path: "/products" },
+    { name: "Địa điểm cửa hàng", path: "/stores" },
+    { name: "Liên hệ", path: "/contact" },
+    { name: "Đăng nhập", path: "/login" },
+    { name: "Đăng ký", path: "/register" },
   ];
   const navItems2 = [
-    { name: "Privacy Policy", path: "/" },
-    { name: "Jobs", path: "/" },
-    { name: "Terms and Conditions", path: "/" },
+    { name: "Chính sách bảo mật", path: "/" },
+    { name: "Việc làm", path: "/" },
+    { name: "Điều khoản và điều kiện", path: "/" },
   ];
 
   const NavItem = ({ item }) => {
@@ -44,22 +44,37 @@ const Footer = () => {
   };
   return (
     <footer className="mt-16">
-      <section className="grid gap-3 lg:grid-cols-4 grid-cols-2 mb-4 pt-12">
-        <div>
+      <section className="flex flex-wrap justify-between mb-4 pt-12">
+        <div className="">
           <Logo />
-          <h2 className="uppercase mt-3 text-sm lg:tracking-[4px] tracking-[1px]">
-            A clothing Brand
-          </h2>
+          <h2 className="uppercase mt-3 text-sm">ĐĂNG KÝ NHẬN THÔNG TIN</h2>
+          <div className="mt-2 lg:mx-0 md:mx-0 mx-2 flex">
+            <input
+              type="text"
+              placeholder="Email Address"
+              className="input input-bordered lg:w-[270px] md:w-[270px] w-[200px] -mr-3 focus:outline-none"
+            />
+            <button className="btn btn-primary text-white normal-case rounded-r-md rounded-l-none flex items-center gap-1">
+              <span className="lg:block md:block hidden">Đăng ký</span>
+              <lord-icon
+                target="button"
+                src="https://cdn.lordicon.com/zmkotitn.json"
+                trigger="hover"
+                colors="primary:#ffffff"
+                style={{ width: "20px", height: "20px", paddingTop: "2px" }}
+              ></lord-icon>
+            </button>
+          </div>
         </div>
-        <Nav items={navItems1} title={"Menubar"} />
-        <Nav items={navItems2} title={"Useful Links"} />
+        <Nav items={navItems1} title={"Về Jenta"} />
+        <Nav items={navItems2} title={"Hỗ trợ khách hàng"} />
         <div className="text-sm">
-          <h2 className="mb-2 font-bold">Reach Out to us</h2>
+          <h2 className="mb-2 font-bold">Liên hệ</h2>
           <span className="flex items-center gap-2 mb-[5px]">
             <HiOutlineMail /> jentashop@gmail.com
           </span>
           <span className="flex items-center gap-2 mb-[5px]">
-            <HiOutlinePhone /> +99012345{" "}
+            <HiOutlinePhone /> +99012345
           </span>
         </div>
       </section>

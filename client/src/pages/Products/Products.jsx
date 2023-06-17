@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BsFilterSquare } from "react-icons/bs";
 import { requestShop } from "../../utils/httpRequest";
 import { ProductCard } from "../../components";
 import { useTitle } from "../../hooks";
@@ -42,8 +41,7 @@ const Products = () => {
         <aside className="hidden rounded-lg lg:block bg-white sticky top-16 py-4 px-2 lg:mx-0 md:mx-0 z-[2]">
           <div className="flex flex-wrap px-2">
             <div className="flex items-center gap-2 mr-3 py-2">
-              <BsFilterSquare className="text-xl" />
-              <span className="font-medium">Filters</span>
+              <span className="font-medium">Sắp xếp theo</span>
             </div>
             <select className="select select-bordered min-h-0 h-9 flex-grow ">
               <option defaultValue>Mặc định</option>

@@ -2,27 +2,27 @@ import { FeaturesCard } from "../../components";
 
 const features = [
   {
-    name: "Free Delivery",
+    name: "Miễn phí vận chuyển",
     image: "https://cdn.lordicon.com/iejknaed.json",
-    description: "Free shipping for orders over 200k.",
+    description: "Miễn phí vận chuyển cho đơn hàng trên 200k.",
   },
   {
-    name: "60 Days Return",
+    name: "Đổi trả trong 60 ngày",
     image: "https://cdn.lordicon.com/pimvysaa.json",
-    description: "60 days return for any reason",
+    description: "Đổi trả trong vòng 60 ngày với bất kỳ lý do nào",
   },
   {
-    name: "Refund Payment",
+    name: "Hoàn tiền",
     image: "https://cdn.lordicon.com/nrzqxhfu.json",
-    description: "Refund within 24 hours.",
+    description: "Hoàn tiền trong vòng 24 giờ.",
   },
   {
-    name: "24/7 Support",
+    name: "Hỗ trợ 24/7",
     image: "https://cdn.lordicon.com/cllunfud.json",
-    description: "Shop and get support from our team anytime",
+    description:
+      "Mua sắm và nhận hỗ trợ từ đội ngũ của chúng tôi bất cứ lúc nào",
   },
 ];
-
 const Features = () => {
   return (
     <section>

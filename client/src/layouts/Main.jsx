@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Navbar, Footer } from "../components";
+import { Navbar, Footer, ScrollToHead } from "../components";
 import { ScrollToTop } from "../components";
 import { Toaster } from "react-hot-toast";
 import { ModalConfirm } from "../components";
@@ -13,6 +13,7 @@ const Main = () => {
         <Outlet />
       </div>
       <ScrollToTop />
+      <ScrollToHead />
       <Footer />
     </section>
   );

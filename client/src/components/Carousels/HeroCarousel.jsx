@@ -6,25 +6,25 @@ import "./HeroCarousel.css";
 
 const content = [
   {
-    title: "Royal Vibe",
-    description:
-      "You one stop place to Shop with Confidence. Shopping is Easy!",
+    title: "Sang trọng",
+    description: "Nơi bạn tìm thấy niềm tin khi mua sắm. Mua sắm dễ dàng!",
     image: banner1,
   },
   {
-    title: "Elegant Styles",
-    description: "We are offering the Fashion That Fits You Best. Grab Now!",
+    title: "Thanh lịch",
+    description:
+      "Chúng tôi mang đến những mẫu thời trang phù hợp nhất cho bạn. Nhanh tay mua ngay!",
     image: banner2,
   },
   {
-    title: "Comfort Fasion",
+    title: "Thoải mái",
     description:
-      "Elevate Your Style with our brand new products, Purchase Today!",
+      "Nâng tầm phong cách với những sản phẩm mới nhất của chúng tôi. Mua ngay hôm nay!",
     image: banner3,
   },
   {
-    title: "Stylish Look",
-    description: "Remarks the landmark of Always On Trend courtesy, Hurry Up!",
+    title: "Thời trang",
+    description: "Ghi dấu mốc của phong cách luôn đi đầu xu hướng. Nhanh lên!",
     image: banner4,
   },
 ];
@@ -57,7 +57,11 @@ const HeroCarousel = () => {
               (slideNumber === 4 && { backgroundColor: "#D6E4E5" })
             }
           >
-            <img src={item.image} alt="" className="relative z-10" />
+            <img
+              src={item.image}
+              alt="Person Shopping"
+              className="relative z-10"
+            />
           </div>
           <div className="info">
             <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold uppercase text-white">
@@ -67,7 +71,7 @@ const HeroCarousel = () => {
               {item.description}
             </p>
             <Link to="/products">
-              <PrimaryButton>Shop Now</PrimaryButton>
+              <PrimaryButton>Mua ngay</PrimaryButton>
             </Link>
           </div>
         </div>

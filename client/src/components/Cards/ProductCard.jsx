@@ -14,10 +14,7 @@ const ProductCard = ({ data }) => {
   };
 
   return (
-    <div
-      className="cart-card transition duration-300 hover:text-[#222] "
-      data-aos="fade-up"
-    >
+    <div className="cart-card transition duration-300 hover:text-[#222]">
       <div className="productImg relative rounded-lg max-h-80 w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
         <Link to={`/products/${product_id}`}>
           <img src={image} alt="" />

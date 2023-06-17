@@ -27,7 +27,9 @@ const HotDeals = () => {
             trigger="loop"
             style={{ width: "60px", height: "60px" }}
           ></lord-icon>
-          <h2 className="font-bold text-2xl textGradient">Hot Deals</h2>
+          <h2 className="font-bold text-2xl textGradient">
+            Khuyến mãi nổi bật
+          </h2>
         </div>
       </div>
       <ListProductSlider products={products} />

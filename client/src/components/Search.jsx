@@ -38,7 +38,7 @@ const Search = () => {
             type="text"
             value={searchValue}
             onChange={handleChange}
-            placeholder="Search"
+            placeholder="Tìm kiếm"
             className="input w-full bg-gray-100 hover:border-primary transition-colors duration-300 focus:outline-none focus:border-primary h-10"
           />
           <button className="btn btn-primary text-white hover:opacity-80 min-h-6 h-10 leading-10">
@@ -59,8 +59,7 @@ const Search = () => {
             } rounded-md w-full p-2 shadow bg-base-100`}
         >
           <div className="card-body">
-            <h3 className="card-title">Search Result!</h3>
-            <p>No product!</p>
+            <p>Không có kết quả tìm kiếm</p>
           </div>
         </div>
       </div>

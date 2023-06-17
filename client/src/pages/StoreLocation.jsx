@@ -6,12 +6,11 @@ const StoreLocation = () => {
   useTitle("Stores");
   const [selectedTab, setSelectedTab] = useState(1);
   const [stores, setStores] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storesData = await requestShop.get("/stores");
-        setStores(storesData.data);
+        const storeData = await requestShop.get("/stores");
+        setStores(storeData.data.metadata);
       } catch (error) {
         console.error(error);
       }
@@ -23,9 +22,9 @@ const StoreLocation = () => {
       <div className="lg:w-1/3">
         {/* SIDE MENU */}
         <div className="sticky top-20 bg-white py-8 px-4 rounded-xl shadow-lg">
-          <h1 className="text-xl font-bold mb-5 pl-8">Shop Location</h1>
+          <h1 className="text-xl font-bold mb-5 pl-8">Vị trí cửa hàng</h1>
           <div className="flex lg:flex-col lg:gap-10 lg:flex-no-wrap flex-row flex-wrap gap-1 text-[#bbb]">
-            {stores?.map((item, index) => (
+            {stores.map((item, index) => (
               <div
                 key={index}
                 onClick={() => {
@@ -68,7 +67,7 @@ const StoreLocation = () => {
           (item, index) =>
             selectedTab === index + 1 && (
               <div key={index}>
-                <div data-aos="fade-left">
+                <div>
                   <img
                     src={item.img}
                     alt=""
@@ -77,7 +76,7 @@ const StoreLocation = () => {
                   <h1 className="mt-6 text-3xl font-bold">{item.name}</h1>
                   <p className="mt-2">{item.location}</p>
                 </div>
-                <div data-aos="fade-up">
+                <div>
                   <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 lg:gap-5 md:gap-4 gap-2">
                     <div className="p-5 rounded-lg bg-white hover:shadow-lg flex flex-col gap-2">
                       <lord-icon

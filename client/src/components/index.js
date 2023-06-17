@@ -8,6 +8,7 @@ export { default as Search } from "./Search";
 export { default as MediumButton } from "./Buttons/MediumButton";
 export { default as PrimaryButton } from "./Buttons/PrimaryButton";
 export { default as ScrollToTop } from "./Buttons/ScrollToTop";
+export { default as ScrollToHead } from "./ScrollToHead";
 
 export { default as NewArrivalCard } from "./Cards/NewArrivalCard";
 export { default as PromotionCard } from "./Cards/PromotionCard";

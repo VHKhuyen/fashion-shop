@@ -15,7 +15,7 @@ const ModalConfirm = () => {
     >
       <div className="modal-box">
         <h3 className="font-bold text-lg">
-          Are you sure you want to delete this product?
+          Bạn có chắc chắn muốn xóa sản phẩm này không?
         </h3>
         <p className="py-4">{modalConfirm.item?.name}</p>
         <div className="modal-action">
@@ -31,7 +31,7 @@ const ModalConfirm = () => {
             }}
             className="btn btn-primary opacity-80 text-white"
           >
-            Remove
+            Xóa
           </button>
           <button
             onClick={() => {
@@ -44,7 +44,7 @@ const ModalConfirm = () => {
             }}
             className="btn btn-outline"
           >
-            Cancel
+            Hủy
           </button>
         </div>
       </div>

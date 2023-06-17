@@ -53,7 +53,7 @@ const Navbar = () => {
             trigger="hover"
             style={{ height: "20px", width: "20px" }}
           ></lord-icon>
-          Collections
+          Bộ sưu tập
         </Link>
       </li>
       <li onClick={handleToggle}>
@@ -64,7 +64,7 @@ const Navbar = () => {
             trigger="hover"
             style={{ height: "20px", width: "20px" }}
           ></lord-icon>
-          Store Location
+          Cửa hàng
         </Link>
       </li>
       <li onClick={handleToggle}>
@@ -75,7 +75,7 @@ const Navbar = () => {
             trigger="hover"
             style={{ height: "20px", width: "20px" }}
           ></lord-icon>
-          Contact
+          Liên hệ
         </Link>
       </li>
     </>
@@ -136,7 +136,7 @@ const Navbar = () => {
                   style={{ height: "25px", width: "25px" }}
                 ></lord-icon>
               </div>
-              <span className="ml-1">Your Cart</span>
+              <span className="ml-1">Giỏ hàng</span>
             </Link>
             <div
               tabIndex={0}
@@ -161,7 +161,7 @@ const Navbar = () => {
                 <FiLogIn className="text-xl text-colorRed" />
               </Link>
               <Link to="/login" className="min-w-fit lg:block md:block hidden">
-                <MediumButton>Sign In</MediumButton>
+                <MediumButton>Đăng nhập</MediumButton>
               </Link>
             </>
           ) : (
@@ -208,7 +208,7 @@ const Navbar = () => {
                         class="set-color"
                         style={{ height: "20px", width: "20px" }}
                       ></lord-icon>
-                      <span>WishList</span>
+                      <span>Yêu thích</span>
                     </Link>
                   </li>
                   <li>
@@ -216,7 +216,7 @@ const Navbar = () => {
                       onClick={handleLogout}
                       className="btn btn-primary mt-4 w-full hover:opacity-80 text-white normal-case"
                     >
-                      Logout
+                      Đăng xuất
                     </button>
                   </li>
                 </ul>

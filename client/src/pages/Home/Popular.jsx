@@ -28,7 +28,7 @@ const Popular = () => {
             colors="outline:#545454,primary:#c7166f,secondary:#fad1e6"
             style={{ width: "60px", height: "60px" }}
           ></lord-icon>
-          <h2 className="font-bold text-2xl textGradient">Popular Items</h2>
+          <h2 className="font-bold text-2xl textGradient">Sản phẩm phổ biến</h2>
         </div>
       </div>
       <ListProductSlider products={products} />

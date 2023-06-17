@@ -5,8 +5,11 @@ import { fetchLogin } from "../../redux/authSlice";
 import { authSelector } from "../../redux/selector";
 import toast from "react-hot-toast";
 import GoogleLogin from "./GoogleLogin";
+import { useTitle } from "../../hooks";
 
 const Login = () => {
+  useTitle("Đăng nhập tài khoản");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,12 +40,9 @@ const Login = () => {
   };
   return (
     <section className=" w-full flex items-center justify-center">
-      <div
-        className="flex rounded-lg bg-white shadow-lg h-[450px] w-[700px]"
-        data-aos="flip-right"
-      >
+      <div className="flex rounded-lg bg-white shadow-lg h-[450px] w-[700px]">
         <div className="lg:w-1/2 p-8">
-          <h2 className="text-xl font-bold text-center mb-4">Login</h2>
+          <h2 className="text-xl font-bold text-center mb-4">Đăng nhập</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -54,23 +54,23 @@ const Login = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
               className="input input-bordered w-full my-2"
               name="password"
               onChange={handleInputChange}
               required
             />
             <button className="btn btn-primary hover:opacity-80 w-full text-white normal-case mt-4">
-              Login
+              Đăng nhập
             </button>
           </form>
 
           <GoogleLogin />
 
           <p className="mt-10">
-            Don't have an account?
+            Bạn chưa có tài khoản?
             <Link to="/register" className="text-secondary">
-              Register Here
+              Đăng ký ngay!
             </Link>
           </p>
         </div>

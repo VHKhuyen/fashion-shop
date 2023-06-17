@@ -11,7 +11,7 @@ import { formattedSize, formattedUnitPrice } from "../../utils/formatter";
 import { AddedCard } from "../../components";
 
 const ProductDetail = () => {
-  useTitle("Product");
+  useTitle("Sản phẩm");
 
   const dispatch = useDispatch();
   const { data: product } = useLoaderData();
@@ -113,7 +113,9 @@ const ProductDetail = () => {
           <div className="flex flex-col mt-6 gap-6">
             {/* SIZE */}
             <div>
-              <h2 className="text-md mb-2 textGradient font-bold">Size</h2>
+              <h2 className="text-md mb-2 textGradient font-bold">
+                Kích thước:
+              </h2>
               <div
                 className={`inline-block p-2 ${
                   !chooseSize && "rounded-lg border-2 border-error"
@@ -145,7 +147,7 @@ const ProductDetail = () => {
             {/* COLORS */}
             <div>
               <h2 className="text-md mb-2 textGradient font-bold">
-                Color: {image.color}
+                Màu sắc: {image.color}
               </h2>
               <div className="flex gap-3">
                 {images.map((img, index) => (
@@ -193,7 +195,7 @@ const ProductDetail = () => {
                 colors="primary:#ffffff"
                 style={{ width: "25px", height: "25px" }}
               ></lord-icon>
-              {size ? "Add to Cart" : "Choose Size"}
+              {size ? "Thêm vào giỏ hàng" : "Chọn kích thước"}
             </button>
           </div>
 
@@ -205,7 +207,7 @@ const ProductDetail = () => {
                 selectedTab === 1 && "tab-active text-error font-bold"
               }`}
             >
-              Description
+              Đặc tính nổi bật
             </span>
             <span
               onClick={() => setSelectedTab(2)}
@@ -213,7 +215,7 @@ const ProductDetail = () => {
                 selectedTab === 2 && "tab-active text-error font-bold"
               }`}
             >
-              Specification
+              Chi tiết sản phẩm
             </span>
             <span
               onClick={() => setSelectedTab(3)}
@@ -221,7 +223,7 @@ const ProductDetail = () => {
                 selectedTab === 3 && "tab-active text-error font-bold"
               }`}
             >
-              Review (3)
+              Đánh giá
             </span>
           </div>
 
@@ -266,9 +268,7 @@ const ProductDetail = () => {
 
       {/* SIMILAR PRODUCTS */}
       <section className="my-32">
-        <h2 className="text-2xl font-bold textGradient mb-8">
-          Similar Products
-        </h2>
+        <h2 className="text-2xl font-bold textGradient mb-8">Gợi ý cho bạn</h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
           {sameProducts
             // ?.filter((p) => p.category === category)
@@ -278,9 +278,6 @@ const ProductDetail = () => {
             ))}
         </div>
       </section>
-
-      {/* GET COUPON */}
-      <Subscribe />
     </div>
   );
 };

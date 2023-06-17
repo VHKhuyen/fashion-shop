@@ -4,8 +4,11 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import GoogleLogin from "./GoogleLogin";
 import { fetchRegister } from "../../redux/authSlice";
+import { useTitle } from "../../hooks";
 
 const Register = () => {
+  useTitle("Đăng ký tài khoản");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +27,7 @@ const Register = () => {
     const result = await dispatch(fetchRegister(formData));
     toast.remove(toastId);
     if (result.payload?.success) {
-      toast.success("Register successfully!", {
+      toast.success("Đăng ký thành công", {
         onClose: setTimeout(() => {
           navigate("/");
         }, 1.5 * 1000),
@@ -32,24 +35,19 @@ const Register = () => {
     } else if (result.payload?.success == false) {
       toast.error(`${result.payload?.message}`);
     } else {
-      toast.error("Something wrong!");
+      toast.error("Lỗi server!");
     }
   };
 
   return (
     <section className="w-full flex items-center justify-center">
-      <div
-        className="flex flex-row-reverse rounded-lg bg-white shadow-lg h-[450px] w-[700px]"
-        data-aos="flip-right"
-      >
+      <div className="flex flex-row-reverse rounded-lg bg-white shadow-lg h-[450px] w-[700px]">
         <div className="lg:w-1/2 p-8">
-          <h2 className="text-xl font-bold text-center mb-4">
-            Open New Account
-          </h2>
+          <h2 className="text-xl font-bold text-center mb-4">Đăng ký</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Tên"
               className="input input-bordered w-full mb-2"
               name="name"
               onChange={handleInputChange}
@@ -65,23 +63,23 @@ const Register = () => {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
               className="input input-bordered w-full my-2"
               name="password"
               onChange={handleInputChange}
               required
             />
             <button className="btn btn-primary bg-primary hover:opacity-80 border-none w-full text-white normal-case mt-4">
-              Register
+              Đăng ký
             </button>
           </form>
 
           <GoogleLogin />
 
           <p className="mt-4">
-            Already have an account?{" "}
+            Bạn đã có tài khoản?
             <Link to="/login" className="text-secondary">
-              Login Here
+              Đăng nhập ngay!
             </Link>
           </p>
         </div>

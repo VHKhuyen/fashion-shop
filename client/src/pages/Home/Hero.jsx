@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="lg:w-1/3 lg:h-[480px]">
         <div className="mb-3">
           <span className="bg-gradient text-white text-xs px-6 py-[5px] rounded-full">
-            New Arrival
+            Hàng Mới Về
           </span>
         </div>
         <NewArrivalSlider />

@@ -16,20 +16,20 @@ const Contact = () => {
   };
   return (
     <>
-      <SectionHeader>Contact Us</SectionHeader>
-      <section className="flex lg:flex-row lg:gap-14 gap-6 flex-col">
-        <div className="lg:w-[35%]" data-aos="fade-right">
+      <SectionHeader>LIÊN HỆ - HỖ TRỢ KHÁCH HÀNG</SectionHeader>
+      <section className="flex lg:flex-row lg:gap-8 gap-4 flex-col">
+        <div className="lg:w-[35%] hidden lg:block">
           <img
             src="https://img.freepik.com/free-vector/happy-man-online-dating-via-laptop_74855-7495.jpg"
             alt=""
             className="w-full rounded-2xl"
           />
         </div>
-        <div className="lg:w-[65%]" data-aos="fade-left">
+        <div className="lg:w-[65%]">
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Tên"
               className="input input-bordered w-full mb-2"
               required
             />
@@ -41,11 +41,11 @@ const Contact = () => {
             />
             <textarea
               className="textarea textarea-bordered w-full h-60"
-              placeholder="Your Message"
+              placeholder="Nội dung"
               required
             ></textarea>
             <button className="btn btn-primary opacity-80 btn-wide normal-case text-white mt-8 lg:mx-0 mx-auto flex items-center gap-2">
-              Send Message
+              Gửi liên hệ
               <lord-icon
                 target="button"
                 src="https://cdn.lordicon.com/zmkotitn.json"

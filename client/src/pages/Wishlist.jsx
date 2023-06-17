@@ -3,11 +3,11 @@ import { SectionHeader } from "../components";
 import { NoItemsFound } from "../components";
 
 const WishList = () => {
-  useTitle("My Wishlist");
+  useTitle("Danh sách yêu thích");
   return (
     <>
-      <SectionHeader>My Wishlist</SectionHeader>
-      <NoItemsFound where={"Wishlist"} />
+      <SectionHeader></SectionHeader>
+      <NoItemsFound where={"Danh sách yêu thích"} />
     </>
   );
 };

@@ -32,9 +32,7 @@ export const routes = createBrowserRouter([
       {
         path: "/products/:id",
         loader: async ({ params }) =>
-          await requestShop.get(
-            `http://localhost:8000/api/v1/products/${params.id}`
-          ),
+          await requestShop.get(`/products/${params.id}`),
 
         element: <ProductPage />,
       },
