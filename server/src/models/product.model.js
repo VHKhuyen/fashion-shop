@@ -58,10 +58,6 @@ const Product = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    quantity_in_stock: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
