@@ -31,8 +31,11 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        state.currentUser = action.payload.infoUser;
-        localStorage.setItem("user", JSON.stringify(action.payload.infoUser));
+        state.currentUser = action.payload.metadata.user;
+        localStorage.setItem(
+          "user",
+          JSON.stringify(action.payload.metadata.user)
+        );
         state.loading = false;
       })
       .addCase(fetchLogin.rejected, (state, action) => {

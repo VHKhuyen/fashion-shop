@@ -5,9 +5,8 @@ import { ProductCard } from "../../components";
 import { NextArrow, PrevArrow } from "../../components/Slider/Arrow";
 
 const ListProductSlider = ({ products }) => {
-  var settings = {
+  const settings = {
     dots: false,
-    infinite: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     speed: 400,
@@ -43,8 +42,8 @@ const ListProductSlider = ({ products }) => {
   };
   return (
     <Slider {...settings}>
-      {products?.map((item, index) => (
-        <div key={index} className="px-2">
+      {products?.map((item) => (
+        <div key={item.product_id} className="px-2">
           <ProductCard data={item} />
         </div>
       ))}

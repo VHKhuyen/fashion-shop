@@ -7,7 +7,6 @@ const HEADER = {
   API_KEY: "x-api-key",
   CLIENT_ID: "x-client-id",
   AUTHORIZATION: "authorization",
-  REFRESHTOKEN: "x-rtoken-id",
 };
 
 const createTokenPair = async (payload, publicKey, privateKey) => {
@@ -50,8 +49,21 @@ const authentication = asyncHandler(async (req, res, next) => {
 
   const keyStore = await KeyToken.findOne({ where: { user_id: userId } });
   if (!keyStore) throw new NotFoundError("Not found keyStore");
+  const accessToken = req.cookies.accessToken;
+  if (accessToken) {
+    try {
+      const decodeUser = jwt.verify(accessToken, keyStore.dataValues.publicKey);
+      if (userId != decodeUser.userId)
+        throw new AuthFailureError("Invalid request");
+      req.keyStore = keyStore.dataValues;
+      req.user = decodeUser;
+      return next();
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  const refreshToken = req.headers[HEADER.REFRESHTOKEN];
+  const refreshToken = req.cookies.refreshToken;
   if (refreshToken) {
     try {
       const decodeUser = jwt.verify(
@@ -68,19 +80,6 @@ const authentication = asyncHandler(async (req, res, next) => {
     } catch (error) {
       throw error;
     }
-  }
-
-  const accessToken = req.headers[HEADER.AUTHORIZATION];
-  if (!accessToken) throw new AuthFailureError("Invalid request");
-
-  try {
-    const decodeUser = jwt.verify(accessToken, keyStore.dataValues.publicKey);
-    if (userId != decodeUser.userId)
-      throw new AuthFailureError("Invalid request");
-    req.keyStore = keyStore.dataValues;
-    return next();
-  } catch (error) {
-    throw error;
   }
 });
 

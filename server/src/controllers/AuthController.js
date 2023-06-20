@@ -13,7 +13,6 @@ const { createTokenPair } = require("../auth/authUtils");
 class AuthController {
   async handleRefreshToken(req, res, next) {
     const { userId, email } = req.user;
-
     if (req.keyStore.refreshTokenUsed === req.refreshToken) {
       await KeyToken.destroy({
         where: { user_id: userId },
@@ -96,6 +95,13 @@ class AuthController {
         throw new BadRequestError("keyStore error");
       }
 
+      res.cookie("refreshToken", tokens.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        path: "/",
+      });
+
       return new Create({
         message: "Account has been created",
         metadata: { newUser: newUser.dataValues, tokens },
@@ -152,6 +158,13 @@ class AuthController {
 
     const { password, ...infoUser } = user.dataValues;
 
+    res.cookie("refreshToken", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
+
     new Ok({
       message: "login successfully",
       metadata: { user: infoUser, tokens: tokens },
@@ -162,6 +175,7 @@ class AuthController {
     const deleKey = await KeyToken.destroy({
       where: { user_id: req.keyStore.user_id },
     });
+    res.clearCookie("refreshToken");
     new Ok({
       message: "Logout success!",
       metadata: deleKey,

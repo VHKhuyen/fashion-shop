@@ -25,14 +25,15 @@ const Register = () => {
     e.preventDefault();
     const toastId = toast.loading("Waiting...");
     const result = await dispatch(fetchRegister(formData));
+    console.log(result);
     toast.remove(toastId);
-    if (result.payload?.success) {
+    if (result.payload?.metadata) {
       toast.success("Đăng ký thành công", {
         onClose: setTimeout(() => {
           navigate("/");
         }, 1.5 * 1000),
       });
-    } else if (result.payload?.success == false) {
+    } else if (result.payload?.message) {
       toast.error(`${result.payload?.message}`);
     } else {
       toast.error("Lỗi server!");
