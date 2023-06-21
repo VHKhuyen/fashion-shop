@@ -25,8 +25,8 @@ const Register = () => {
     e.preventDefault();
     const toastId = toast.loading("Waiting...");
     const result = await dispatch(fetchRegister(formData));
-    console.log(result);
     toast.remove(toastId);
+
     if (result.payload?.metadata) {
       toast.success("Đăng ký thành công", {
         onClose: setTimeout(() => {

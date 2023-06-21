@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
+import { requestShop } from "../utils/httpRequest";
+import useDebounce from "../hooks/useDebounce";
+import SearchProductCard from "./Cards/SearchProductCard";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const debounce = useDebounce(searchValue, 500);
+
+  const inputRef = useRef();
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
@@ -19,16 +25,18 @@ const Search = () => {
     }
     const controller = new AbortController();
     const fetchData = async () => {
-      const response = [1, 2, 3, 4];
+      const response = await requestShop.post("/products", {
+        keySearch: searchValue,
+      });
       if (response) {
-        setSearchResult(response);
+        setSearchResult(response.data.metadata);
       }
     };
     fetchData();
     return () => {
       controller.abort();
     };
-  }, [searchValue]);
+  }, [debounce]);
 
   return (
     <>
@@ -38,6 +46,7 @@ const Search = () => {
             type="text"
             value={searchValue}
             onChange={handleChange}
+            ref={inputRef}
             placeholder="Tìm kiếm"
             className="input w-full bg-gray-100 hover:border-primary transition-colors duration-300 focus:outline-none focus:border-primary h-10"
           />
@@ -55,12 +64,18 @@ const Search = () => {
           tabIndex={0}
           className={`
             dropdown-content ${
-              !(searchResult.length > 0) && "hidden"
+              !searchValue && "hidden"
             } rounded-md w-full p-2 shadow bg-base-100`}
         >
-          <div className="card-body">
-            <p>Không có kết quả tìm kiếm</p>
-          </div>
+          {searchResult.length > 0 && searchValue ? (
+            searchResult?.map((item) => (
+              <div key={item.product_id}>
+                <SearchProductCard {...item} setSearchValue={setSearchValue} />
+              </div>
+            ))
+          ) : (
+            <p>Không có kết quả tìm kiếm!</p>
+          )}
         </div>
       </div>
       <button className="lg:hidden cursor-pointer hover:text-primary flex items-center gap-1 mr-5 color-change">

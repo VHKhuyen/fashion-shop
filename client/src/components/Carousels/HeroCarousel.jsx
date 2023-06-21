@@ -13,13 +13,13 @@ const content = [
   {
     title: "Thanh lịch",
     description:
-      "Chúng tôi mang đến những mẫu thời trang phù hợp nhất cho bạn. Nhanh tay mua ngay!",
+      "Chúng tôi mang đến những mẫu thời trang phù hợp nhất cho bạn!",
     image: banner2,
   },
   {
     title: "Thoải mái",
     description:
-      "Nâng tầm phong cách với những sản phẩm mới nhất của chúng tôi. Mua ngay hôm nay!",
+      "Nâng tầm phong cách với những sản phẩm mới nhất của chúng tôi",
     image: banner3,
   },
   {
@@ -67,7 +67,7 @@ const HeroCarousel = () => {
             <h1 className="lg:text-5xl md:text-4xl text-2xl font-bold uppercase text-white">
               {item.title}
             </h1>
-            <p className="mt-2 lg:mb-8 md:mb-8 mb-5 lg:text-lg md:text-lg text-sm lg:w-3/4 md:w-3/4">
+            <p className="mt-2 lg:mb-8 md:mb-8 mb-5 lg:text-lg md:text-lg text-sm w-3/4">
               {item.description}
             </p>
             <Link to="/products">

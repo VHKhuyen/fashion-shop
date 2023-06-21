@@ -17,6 +17,7 @@ export { default as ProductCard } from "./Cards/ProductCard";
 export { default as AddedCard } from "./Cards/AddedCard";
 export { default as ReviewCard } from "./Cards/ReviewCard";
 export { default as CartProductCard } from "./Cards/CartProductCard";
+export { default as SearchProductCard } from "./Cards/SearchProductCard";
 
 export { default as Logo } from "./Typography/Logo";
 export { default as SectionHeader } from "./Typography/SectionHeader";

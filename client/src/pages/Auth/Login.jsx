@@ -14,6 +14,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
   const { loading } = auth;
@@ -21,12 +22,13 @@ const Login = () => {
   const handleInputChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Waiting...");
     const result = await dispatch(fetchLogin(formData));
-    console.log(result);
     toast.remove(toastId);
+
     if (result.payload?.metadata) {
       toast.success("Login successfully!", {
         onClose: setTimeout(() => {

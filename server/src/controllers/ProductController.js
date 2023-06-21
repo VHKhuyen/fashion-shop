@@ -4,12 +4,19 @@ const { Ok } = require("../core/success.response");
 
 class ProductController {
   async searchProduct(req, res) {
-    const { keySearch } = req.params;
+    const { keySearch } = req.body;
     const products = await Product.findAll({
       where: Sequelize.literal(
         `MATCH (name, product_slug) AGAINST (:keySearch)`
       ),
       replacements: { keySearch },
+      attributes: ["name", "unit_price"],
+      include: {
+        model: ProductImg,
+        as: "images",
+        attributes: ["imgUrl"],
+        limit: 1,
+      },
     });
     new Ok({
       message: "get list product success!",

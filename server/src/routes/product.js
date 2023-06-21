@@ -7,7 +7,8 @@ const { authentication } = require("../auth/authUtils");
 router
   .get("/", asyncHandler(ProductController.getAllProduct))
   .get("/:id", asyncHandler(ProductController.getById))
-  .get("/:category", asyncHandler(ProductController.getByCategory));
+  .get("/:category", asyncHandler(ProductController.getByCategory))
+  .post("/", asyncHandler(ProductController.searchProduct));
 
 //check authentication
 router.use(authentication);

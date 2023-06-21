@@ -5,7 +5,7 @@ import { useTitle } from "../../hooks";
 import { priceRanges, sizes } from "../../data";
 
 const Products = () => {
-  useTitle("Products");
+  useTitle("Bộ sưu tập");
 
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
@@ -21,6 +21,7 @@ const Products = () => {
       setSelectedProduct(sortProducts);
     }
   };
+
   const fetchProducts = async () => {
     try {
       const response = await requestShop.get("/products");
@@ -112,36 +113,40 @@ const Products = () => {
           </ul>
         </aside>
       </div>
-      <section className="lg:w-[75%]">
-        <ul className="tabs tabs-boxed bg-transparent p-0 pb-3">
-          <li
-            onClick={() => handleTab("all", 100)}
-            className={`tab mr-2 ${
-              selectedTab == 100 ? "tab-active" : "bg-gray-200"
-            }`}
-          >
-            All
-          </li>
-          {categories?.map((category, index) => (
+      {products.length > 0 ? (
+        <section className="lg:w-[75%]">
+          <ul className="tabs tabs-boxed bg-transparent p-0 pb-3">
             <li
-              key={index}
-              onClick={() => handleTab(category, index)}
-              className={`tab mr-2  ${
-                selectedTab == index ? "tab-active" : "bg-gray-200"
+              onClick={() => handleTab("all", 100)}
+              className={`tab mr-2 ${
+                selectedTab == 100 ? "tab-active" : "bg-gray-200"
               }`}
             >
-              {category}
+              All
             </li>
-          ))}
-        </ul>
-        <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-5">
-          {selectedProduct?.map((item) => (
-            <div key={item.product_id}>
-              <ProductCard data={item} />
-            </div>
-          ))}
-        </div>
-      </section>
+            {categories?.map((category, index) => (
+              <li
+                key={index}
+                onClick={() => handleTab(category, index)}
+                className={`tab mr-2  ${
+                  selectedTab == index ? "tab-active" : "bg-gray-200"
+                }`}
+              >
+                {category}
+              </li>
+            ))}
+          </ul>
+          <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-5">
+            {selectedProduct?.map((item) => (
+              <div key={item.product_id}>
+                <ProductCard data={item} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </div>
   );
 };

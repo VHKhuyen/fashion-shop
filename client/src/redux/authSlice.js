@@ -62,7 +62,9 @@ export const fetchRegister = createAsyncThunk(
   "auth/fetchRegister",
   async (valueForm, { rejectWithValue }) => {
     try {
-      const response = await requestShop.post("/auth/register", valueForm);
+      const response = await requestShop.post("/auth/register", valueForm, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

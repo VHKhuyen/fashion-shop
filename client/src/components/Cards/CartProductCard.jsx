@@ -33,7 +33,7 @@ const CartProductCard = ({ data }) => {
         <img src={image} alt="" className="h-24 rounded-md" />
         <div>
           <h3 className="font-semibold text-[14px] capitalize leading-5">
-            {name.toLowerCase()}
+            {name}
           </h3>
           <p>{formattedUnitPrice(price)}</p>
           <span>{color} / </span>
