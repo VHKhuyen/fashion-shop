@@ -51,7 +51,7 @@ const Footer = () => {
           <div className="mt-2 lg:mx-0 md:mx-0 mx-2 flex">
             <input
               type="text"
-              placeholder="Email Address"
+              placeholder="Địa chỉ Email"
               className="input input-bordered lg:w-[270px] md:w-[270px] w-[200px] -mr-3 focus:outline-none"
             />
             <button className="btn btn-primary text-white normal-case rounded-r-md rounded-l-none flex items-center gap-1">

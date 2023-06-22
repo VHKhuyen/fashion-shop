@@ -5,15 +5,13 @@ import { PrimaryButton } from "./index";
 import { useSelector } from "react-redux";
 import { cartSelector } from "../redux/selector";
 import { formattedUnitPrice, calculateTotalPrice } from "../utils/formatter";
-import { useTitle } from "../hooks";
 
 const Cart = () => {
-  useTitle("Giỏ hàng");
   const { cartItems } = useSelector(cartSelector);
 
   return (
     <section className="cart w-[400px] ">
-      <div className="cart max-h-[320px] overflow-y-auto ">
+      <div className="cart max-h-[320px] overflow-y-auto">
         {cartItems?.length ? (
           cartItems?.map((item, index) => (
             <CartProductCard data={item} key={index} />

@@ -12,6 +12,7 @@ import {
   Contact,
   CartPage,
   Wishlist,
+  Checkout,
   // ErrorPage,
 } from "../pages";
 
@@ -59,6 +60,10 @@ export const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },

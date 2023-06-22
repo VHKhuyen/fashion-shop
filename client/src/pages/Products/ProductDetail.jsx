@@ -40,7 +40,7 @@ const ProductDetail = () => {
         addItem({
           id: product.product_id,
           name: product.name,
-          price: product.price,
+          price: product.unit_price,
           image: images.imgUrl,
           color: images.color,
           size,
@@ -53,10 +53,10 @@ const ProductDetail = () => {
             {...{
               id: product.product_id,
               name: product.name,
-              price: product.price,
               image: images.imgUrl,
               color: images.color,
               size,
+              price: product.unit_price,
               quantity,
             }}
             t={t}

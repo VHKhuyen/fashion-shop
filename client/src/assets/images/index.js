@@ -5,3 +5,5 @@ export { default as banner1 } from "./banner1.png";
 export { default as banner2 } from "./banner2.png";
 export { default as banner3 } from "./banner3.png";
 export { default as banner4 } from "./banner4.png";
+export { default as momo_icon } from "./momo_icon.svg";
+export { default as vnpay } from "./vnpay.webp";

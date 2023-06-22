@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 const AddedCard = ({ name, image, size, color, price, t }) => {
   return (
     <div className="card w-72 bg-base-100 shadow-2xl p-4">
-      <h3 className="font-semibold text-base mb-2">Added to cart!</h3>
+      <h3 className="font-semibold text-base mb-2">Đã thêm vào giỏ hàng!</h3>
       <div className="flex items-center">
         <div className="w-20">
           <img

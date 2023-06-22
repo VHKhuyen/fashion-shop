@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -147,19 +146,26 @@ const Cart = () => {
               </tbody>
             </table>
           </div>
-          <div className="h-max w-full sticky top-16 z-[2] xl:w-2/6 p-10 bg-white rounded-xl shadow-md">
+          <div className="relative h-max w-full z-[2] xl:w-2/6 px-6 py-12 bg-white rounded-xl shadow-md">
+            <p className="absolute text-sm py-1 px-5 top-0 left-0 right-0 rounded-t p-1 bg-primary opacity-90 text-white">
+              Dùng mã giảm giá của Jenta trong bước tiếp theo
+            </p>
             <div className="flex justify-between items-end">
-              <span className="text-xl">Tổng cộng </span>
+              <span className="text-base font-semibold">
+                Tổng đơn hàng (Tạm tính) :{" "}
+              </span>
               <h2 className="text-xl font-semibold">
                 {formattedUnitPrice(calculateTotalPrice(cartItems))}
               </h2>
             </div>
-            <PrimaryButton
-              className="w-full mt-12"
-              eventHandler={handleCheckout}
-            >
-              Thanh toán
-            </PrimaryButton>
+            <Link to="/checkout">
+              <PrimaryButton
+                className="w-full mt-12"
+                eventHandler={handleCheckout}
+              >
+                Thanh toán
+              </PrimaryButton>
+            </Link>
           </div>
         </div>
       ) : (
