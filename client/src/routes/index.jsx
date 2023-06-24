@@ -13,14 +13,14 @@ import {
   CartPage,
   Wishlist,
   Checkout,
-  ErrorPage,
+  // ErrorPage,
 } from "../pages";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

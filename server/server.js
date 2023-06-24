@@ -10,5 +10,3 @@ process.on("SIGINT", () => {
     console.log("Exit server express!");
   });
 });
-
-module.exports = app;

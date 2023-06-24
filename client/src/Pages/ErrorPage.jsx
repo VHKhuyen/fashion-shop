@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { PrimaryButton } from "../components";
+
 const ErrorPage = () => {
   return (
     <div className="grid h-screen px-4 bg-white place-content-center">
