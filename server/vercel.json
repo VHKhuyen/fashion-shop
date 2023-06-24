@@ -1,16 +1,8 @@
 {
-    "version": 2,
-    "name": "jenta",
-    "builds": [
+    "rewrites": [
         {
-            "src": "server.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/server.js"
+            "source": "/(.*)",
+            "destination": "/api"
         }
     ]
 }
