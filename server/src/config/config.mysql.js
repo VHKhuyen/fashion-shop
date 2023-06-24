@@ -27,6 +27,7 @@ const pro = {
     user: process.env.PRO_APP_USER,
     password: process.env.PRO_APP_PASSWORD,
     name: process.env.PRO_APP_NAME,
+    port: process.env.PRO_APP_PORT,
     dialect: "mysql",
 
     pool: {
