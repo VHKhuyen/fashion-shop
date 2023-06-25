@@ -1,49 +1,13 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const {
-  BadRequestError,
-  AuthFailureError,
-  ForbiddenError,
-} = require("../core/error.response");
+const { BadRequestError, AuthFailureError } = require("../core/error.response");
 const { Ok, Create } = require("../core/success.response");
 const { User, KeyToken } = require("../models");
 const KeyTokenService = require("../services/keyToken.service");
 const { createTokenPair } = require("../auth/authUtils");
+const { setCookie } = require("../helpers/setCookie");
 
 class AuthController {
-  async handleRefreshToken(req, res, next) {
-    const { userId, email } = req.user;
-    if (req.keyStore.refreshTokenUsed === req.refreshToken) {
-      await KeyToken.destroy({
-        where: { user_id: userId },
-      });
-      throw new ForbiddenError("Something wrong happen! Pls re-login");
-    }
-    if (req.keyStore.refreshToken !== req.refreshToken)
-      throw new AuthFailureError("user not registered");
-
-    //check user
-    const foundUser = await User.findOne({ where: { email: email } });
-    if (!foundUser) throw new AuthFailureError("user not registered");
-
-    //create new tokenPair
-    const tokens = await createTokenPair(
-      { userId, email },
-      req.keyStore.publicKey,
-      req.keyStore.privateKey
-    );
-
-    await KeyToken.update(
-      { refreshToken: tokens.refreshToken, refreshTokenUsed: req.refreshToken },
-      { where: { user_id: userId } }
-    );
-
-    new Ok({
-      message: "get token success!",
-      metadata: { user: { user_id: userId, email }, tokens },
-    }).send(res);
-  }
-
   /*
   1 - check email exists in dbs
   2 - hash password
@@ -95,12 +59,7 @@ class AuthController {
         throw new BadRequestError("keyStore error");
       }
 
-      res.cookie("refreshToken", tokens.refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        path: "/",
-      });
+      setCookie(res, tokens.accessToken, tokens.refreshToken);
 
       return new Create({
         message: "Account has been created",
@@ -158,12 +117,7 @@ class AuthController {
 
     const { password, ...infoUser } = user.dataValues;
 
-    res.cookie("refreshToken", tokens.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      path: "/",
-    });
+    setCookie(res, tokens.accessToken, tokens.refreshToken);
 
     new Ok({
       message: "login successfully",
@@ -175,7 +129,10 @@ class AuthController {
     const deleKey = await KeyToken.destroy({
       where: { user_id: req.keyStore.user_id },
     });
+
+    res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
+
     new Ok({
       message: "Logout success!",
       metadata: deleKey,
