@@ -8,7 +8,7 @@ const NewArrivalCard = ({ data, bg }) => {
   return (
     <Link to={`/products/${id}`}>
       <div
-        className="w-full h-full flex justify-between items-center rounded px-6 py-4 lg:my-2 product"
+        className="max-w-full h-full flex justify-between items-center rounded px-6 py-4 lg:my-2 product"
         style={{ backgroundColor: `${bg}` }}
       >
         <div>

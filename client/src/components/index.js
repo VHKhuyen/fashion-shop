@@ -4,6 +4,7 @@ export { default as Subscribe } from "./Subscribe";
 export { default as NoItemsFound } from "./NoItemsFound";
 export { default as SeeMore } from "./SeeMore";
 export { default as Search } from "./Search";
+export { default as Loading } from "./loading/Loading";
 
 export { default as MediumButton } from "./Buttons/MediumButton";
 export { default as PrimaryButton } from "./Buttons/PrimaryButton";
@@ -22,7 +23,7 @@ export { default as SearchProductCard } from "./Cards/SearchProductCard";
 export { default as Logo } from "./Typography/Logo";
 export { default as SectionHeader } from "./Typography/SectionHeader";
 
-export { default as HeroCarousel } from "./Carousels/HeroCarousel";
+export { default as HeroSlider } from "./Slider/HeroSlider";
 export { default as NewArrivalSlider } from "./Slider/NewArrivalSlider";
 export { default as PromotionSlider } from "./Slider/PromotionSlider";
 export { default as ListProductSlider } from "./Slider/ListProductSlider";

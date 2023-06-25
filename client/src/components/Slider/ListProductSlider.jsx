@@ -9,8 +9,9 @@ const ListProductSlider = ({ products }) => {
     dots: false,
     slidesToShow: 4,
     slidesToScroll: 4,
-    speed: 400,
-    swipe: false,
+    speed: 800,
+    swipeToSlide: true,
+    draggable: false,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [

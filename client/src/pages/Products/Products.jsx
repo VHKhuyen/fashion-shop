@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { requestShop } from "../../utils/httpRequest";
-import { ProductCard } from "../../components";
+import { Loading, ProductCard } from "../../components";
 import { useTitle } from "../../hooks";
 import { priceRanges, sizes } from "../../data";
 
@@ -145,7 +145,7 @@ const Products = () => {
           </div>
         </section>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )}
     </div>
   );

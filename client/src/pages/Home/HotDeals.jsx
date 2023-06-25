@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ListProductSlider } from "../../components";
+import { ListProductSlider, Loading } from "../../components";
 import { SeeMore } from "../../components";
 import { requestShop } from "../../utils/httpRequest";
 
@@ -32,8 +32,14 @@ const HotDeals = () => {
           </h2>
         </div>
       </div>
-      <ListProductSlider products={products} />
-      <SeeMore to="/products" />
+      {products.length ? (
+        <>
+          <ListProductSlider products={products} />
+          <SeeMore to="/products" />
+        </>
+      ) : (
+        <Loading />
+      )}
     </section>
   );
 };

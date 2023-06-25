@@ -1,61 +1,61 @@
-import { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import { NextArrow, PrevArrow } from "./ArrowSlider";
 import { PrimaryButton } from "../index";
 import { banner1, banner2, banner3, banner4 } from "../../assets/images";
-import "./HeroCarousel.css";
+import "../../assets/styles/heroSlider.css";
 
 const content = [
   {
     title: "Sang trọng",
     description: "Nơi bạn tìm thấy niềm tin khi mua sắm. Mua sắm dễ dàng!",
     image: banner1,
+    backgroundColor: "#FECD70",
   },
   {
     title: "Thanh lịch",
     description:
       "Chúng tôi mang đến những mẫu thời trang phù hợp nhất cho bạn!",
     image: banner2,
+    backgroundColor: "#A8D1D1",
   },
   {
     title: "Thoải mái",
     description:
       "Nâng tầm phong cách với những sản phẩm mới nhất của chúng tôi",
     image: banner3,
+    backgroundColor: "#B1D7B4",
   },
   {
     title: "Thời trang",
     description: "Ghi dấu mốc của phong cách luôn đi đầu xu hướng. Nhanh lên!",
     image: banner4,
+    backgroundColor: "#D6E4E5",
   },
 ];
 
-const HeroCarousel = () => {
-  const [slideNumber, setSlideNumber] = useState(1);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (slideNumber === 4) {
-        setSlideNumber(1);
-      } else {
-        setSlideNumber(slideNumber + 1);
-      }
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, [slideNumber]);
+const HeroSlider = () => {
+  const settings = {
+    dots: true,
+    dotsClass: "slick-dots hero-dots",
+    infinite: true,
+    speed: 800,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
   return (
-    <div className="slider">
+    <Slider {...settings}>
       {content.map((item, index) => (
-        <div
-          key={index}
-          className={`slide ${slideNumber === index + 1 && "active"}`}
-        >
+        <div key={index} className="slide">
           <div
             className="image"
-            style={
-              (slideNumber === 1 && { backgroundColor: "#FECD70" }) ||
-              (slideNumber === 2 && { backgroundColor: "#A8D1D1" }) ||
-              (slideNumber === 3 && { backgroundColor: "#B1D7B4" }) ||
-              (slideNumber === 4 && { backgroundColor: "#D6E4E5" })
-            }
+            style={{ backgroundColor: item.backgroundColor }}
           >
             <img
               src={item.image}
@@ -76,26 +76,8 @@ const HeroCarousel = () => {
           </div>
         </div>
       ))}
-      <div className="navigation">
-        <div
-          className={`navBtn ${slideNumber === 1 && "active"}`}
-          onClick={() => setSlideNumber(1)}
-        ></div>
-        <div
-          className={`navBtn ${slideNumber === 2 && "active"}`}
-          onClick={() => setSlideNumber(2)}
-        ></div>
-        <div
-          className={`navBtn ${slideNumber === 3 && "active"}`}
-          onClick={() => setSlideNumber(3)}
-        ></div>
-        <div
-          className={`navBtn ${slideNumber === 4 && "active"}`}
-          onClick={() => setSlideNumber(4)}
-        ></div>
-      </div>
-    </div>
+    </Slider>
   );
 };
 
-export default HeroCarousel;
+export default HeroSlider;

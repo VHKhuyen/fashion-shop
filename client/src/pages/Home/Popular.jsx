@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SeeMore } from "../../components";
+import { Loading, SeeMore } from "../../components";
 import { ListProductSlider } from "../../components";
 import { requestShop } from "../../utils/httpRequest";
 
@@ -31,8 +31,14 @@ const Popular = () => {
           <h2 className="font-bold text-2xl textGradient">Sản phẩm phổ biến</h2>
         </div>
       </div>
-      <ListProductSlider products={products} />
-      <SeeMore to="/products" />
+      {products.length ? (
+        <>
+          <ListProductSlider products={products} />
+          <SeeMore to="/products" />
+        </>
+      ) : (
+        <Loading />
+      )}
     </section>
   );
 };

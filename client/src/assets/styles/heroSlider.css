@@ -1,0 +1,62 @@
+.hero-dots {
+  bottom: 20px;
+}
+.slick-dots.hero-dots li button:before {
+  font-size: 10px;
+}
+.slick-dots.hero-dots li.slick-active button:before,
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+  color: white;
+}
+
+.slide {
+  height: 480px;
+  position: relative;
+}
+
+.slide > .image {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide > .image > img {
+  height: 80%;
+  width: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.slide > .info {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+}
+
+@media screen and (max-width: 560px) {
+  .slider {
+    height: 480px;
+  }
+
+  .slide > .info {
+    top: 25%;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .slide > .image > img {
+    height: 55%;
+    width: auto;
+    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+  }
+}

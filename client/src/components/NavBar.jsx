@@ -29,9 +29,9 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const toastId = toast.loading("Waiting...");
-      const result = await dispatch(fetchLogout());
+      const response = await dispatch(fetchLogout(currentUser.user_id));
       toast.remove(toastId);
-      if (result.payload?.success) {
+      if (response.payload.metadata) {
         setTimeout(() => {
           navigate("/");
         });
@@ -145,7 +145,7 @@ const Navbar = () => {
               <Cart />
             </div>
           </div>
-          <Link to="/cart" className="mr-5 lg:hidden  block">
+          <Link to="/cart" className="mr-5 lg:hidden block">
             <div className="indicator">
               <span className="indicator-item text-xs font-semibold badge badge-primary px-[6px]">
                 {calculateTotalQty(cartItems)}
@@ -157,10 +157,10 @@ const Navbar = () => {
           {/* SIGN IN */}
           {!currentUser ? (
             <>
-              <Link to="/login" className="mr-2 lg:hidden md:hidden block">
+              <Link to="/login" className="mr-2  block sm:hidden">
                 <FiLogIn className="text-xl text-colorRed" />
               </Link>
-              <Link to="/login" className="min-w-fit lg:block md:block hidden">
+              <Link to="/login" className="min-w-fit sm:block hidden">
                 <MediumButton>Đăng nhập</MediumButton>
               </Link>
             </>

@@ -1,32 +1,13 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { NewArrivalCard } from "../../components";
 import { useState, useEffect } from "react";
+import { NewArrivalCard } from "../../components";
+import { NextArrow, PrevArrow } from "./ArrowSlider";
 import { requestShop } from "../../utils/httpRequest";
+
 const productsBg = ["#F0997D", "#F7E2D6", "#D7E9B9", "#FFE7CC", "#CEE5D0"];
 
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className}  transform-none hover:scale-[1.25] z-[1] right-0 transition-transform`}
-      style={{ ...style }}
-      onClick={onClick}
-    />
-  );
-};
-
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className}  transform-none hover:scale-[1.25] z-[1] left-0 transition-transform`}
-      style={{ ...style }}
-      onClick={onClick}
-    />
-  );
-};
 const NewArrivalSlider = () => {
   var settings = {
     dots: false,
@@ -37,7 +18,7 @@ const NewArrivalSlider = () => {
     speed: 500,
     autoplaySpeed: 3000,
     vertical: true,
-    pauseOnHover: false,
+    pauseOnHover: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [

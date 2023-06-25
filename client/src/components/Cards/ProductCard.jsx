@@ -15,11 +15,11 @@ const ProductCard = ({ data }) => {
 
   return (
     <div className="cart-card transition duration-300 hover:text-[#222]">
-      <div className="productImg relative rounded-lg max-h-80 w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
-        <Link to={`/products/${product_id}`}>
-          <img src={image} alt="" />
-        </Link>
-      </div>
+      <Link to={`/products/${product_id}`}>
+        <div className="productImg relative rounded-lg max-h-80 w-full mb-[10px] overflow-hidden rounded-t-lg bg-[#eceff1]">
+          <img src={image} alt="image" />
+        </div>
+      </Link>
       <div>
         <h3 className="lg:text-base h-12 md:text-lg text-sm leading-[18px]">
           <Link

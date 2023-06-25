@@ -86,15 +86,21 @@ export const fetchLogin = createAsyncThunk(
   }
 );
 
-export const fetchLogout = createAsyncThunk("auth/fetchLogout", async () => {
-  try {
-    const response = await requestShop.get("/auth/logout", {
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    return error.response.data;
+export const fetchLogout = createAsyncThunk(
+  "auth/fetchLogout",
+  async (userId) => {
+    try {
+      const response = await requestShop.get("/auth/logout", {
+        withCredentials: true,
+        headers: {
+          "x-client-id": userId,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
   }
-});
+);
 
 export default authSlice.reducer;

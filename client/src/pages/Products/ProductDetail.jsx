@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { ProductCard } from "../../components";
+import { Loading, ProductCard } from "../../components";
 import { useTitle } from "../../hooks";
 import { requestShop } from "../../utils/httpRequest";
 import { addItem } from "../../redux/cartSlice";
@@ -273,7 +273,7 @@ const ProductDetail = () => {
           </div>
         </section>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )}
       {/* SIMILAR PRODUCTS */}
 
