@@ -18,8 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
+    origin: [process.env.URL_REACT1, process.env.URL_REACT2],
     credentials: true,
-    origin: process.env.URL_REACT,
   })
 );
 
