@@ -6,17 +6,13 @@ const setCookie = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    path: "/",
-    domain: process.env.DOMAIN_CLIENT,
     maxAge: accessTokenMaxAge,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "none",
-    path: "/",
-    domain: process.env.DOMAIN_CLIENT,
+    sameSite: "None",
     maxAge: refreshTokenMaxAge,
   });
 };
