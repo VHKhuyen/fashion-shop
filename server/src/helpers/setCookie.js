@@ -5,14 +5,12 @@ const setCookie = (res, accessToken, refreshToken) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     sameSite: "strict",
-    domain: "jenta.site",
     maxAge: accessTokenMaxAge,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "strict",
-    domain: "jenta.site",
     maxAge: refreshTokenMaxAge,
   });
 };
