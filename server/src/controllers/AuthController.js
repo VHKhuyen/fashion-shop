@@ -90,12 +90,10 @@ class AuthController {
     if (!match) throw new AuthFailureError("Wrong email or password!");
 
     const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
-      modulusLength: 1024,
+      modulusLength: 2048,
       publicKeyEncoding: { type: "pkcs1", format: "pem" },
       privateKeyEncoding: { type: "pkcs1", format: "pem" },
     });
-
-    console.log(publicKey, privateKey);
 
     const tokens = await createTokenPair(
       {
@@ -105,7 +103,6 @@ class AuthController {
       publicKey,
       privateKey
     );
-    console.log(tokens);
 
     const keyStore = await KeyTokenService.createKeyToken({
       userId: user.user_id,

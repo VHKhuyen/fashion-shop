@@ -15,11 +15,11 @@ const KeyToken = sequelize.define(
       },
     },
     publicKey: {
-      type: DataTypes.STRING(1000),
+      type: DataTypes.STRING(3000),
       allowNull: false,
     },
     privateKey: {
-      type: DataTypes.STRING(1000),
+      type: DataTypes.STRING(3000),
       allowNull: false,
     },
     refreshToken: {
