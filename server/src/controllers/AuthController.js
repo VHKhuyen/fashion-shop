@@ -95,6 +95,8 @@ class AuthController {
       privateKeyEncoding: { type: "pkcs1", format: "pem" },
     });
 
+    console.log(publicKey, privateKey);
+
     const tokens = await createTokenPair(
       {
         userId: user.user_id,
@@ -103,6 +105,7 @@ class AuthController {
       publicKey,
       privateKey
     );
+    console.log(tokens);
 
     const keyStore = await KeyTokenService.createKeyToken({
       userId: user.user_id,
