@@ -6,6 +6,7 @@ const setCookie = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
+    domain: "jenta.site",
     maxAge: accessTokenMaxAge,
   });
 
@@ -13,6 +14,7 @@ const setCookie = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
+    domain: "jenta.site",
     maxAge: refreshTokenMaxAge,
   });
 };
