@@ -5,7 +5,7 @@ const setCookie = (res, accessToken, refreshToken) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "none",
+    sameSite: "None",
     path: "/",
     domain: process.env.DOMAIN_CLIENT,
     maxAge: accessTokenMaxAge,
