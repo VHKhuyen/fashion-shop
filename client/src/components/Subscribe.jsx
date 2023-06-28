@@ -1,6 +1,6 @@
 const Subscribe = () => {
   return (
-    <section className="lg:m-10 md:m-8 m-4 lg:px-12 md:px-12 py-8 bg-secondary rounded-xl">
+    <section className="lg:m-10 md:m-8 m-4 lg:px-12 md:px-12 py-8 bg-slate-800 rounded-xl">
       <div className="flex lg:flex-row md:flex-row flex-col lg:gap-4 items-center">
         <div className="lg:w-1/3">
           <lord-icon
@@ -13,20 +13,20 @@ const Subscribe = () => {
         </div>
         <div className="lg:w-2/3 lg:text-left md:text-left text-center">
           <h1 className="lg:text-5xl text-3xl font-bold text-white">
-            Get <span className="text-[#FFDB89]">20%</span> Off
-            <br /> Discount Coupon
+            Mã giảm giá <span className="text-[#FFDB89]">20%</span>
+            <br />
           </h1>
           <h2 className="lg:text-[24px] text-[18px] text-white mt-4">
-            by Subscribe our Newsletter
+            Đăng ký nhận thông báo mỗi khi có khuyến mãi
           </h2>
-          <div className="mt-10 lg:mx-0 md:mx-0 mx-2 flex">
+          <div className="mt-10 lg:mx-0 md:mx-0 mx-2 flex justify-center md:justify-start">
             <input
               type="text"
-              placeholder="Email Address"
-              className="input input-bordered lg:w-[270px] md:w-[270px] w-[200px] -mr-3 focus:outline-none"
+              placeholder="Địa chỉ email"
+              className="input input-bordered lg:w-[270px] md:w-[270px] w-[200px] -mr-3"
             />
             <button className="btn btn-primary text-white normal-case rounded-r-md rounded-l-none flex items-center gap-1">
-              <span className="lg:block md:block hidden">Get Coupon</span>
+              <span>Đăng ký</span>
               <lord-icon
                 target="button"
                 src="https://cdn.lordicon.com/zmkotitn.json"

@@ -25,8 +25,8 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       const response = await requestShop.get("/products");
-      setProducts(response.data);
-      setSelectedProduct(response.data);
+      setProducts(response.data.metadata);
+      setSelectedProduct(response.data.metadata);
     } catch (error) {
       console.error(error);
     }
@@ -138,7 +138,7 @@ const Products = () => {
           </ul>
           <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-5">
             {selectedProduct?.map((item) => (
-              <div key={item.product_id}>
+              <div key={item.id}>
                 <ProductCard data={item} />
               </div>
             ))}

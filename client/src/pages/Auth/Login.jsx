@@ -43,8 +43,8 @@ const Login = () => {
   };
   return (
     <section className=" w-full flex items-center justify-center">
-      <div className="flex rounded-lg bg-white shadow-lg h-[450px] w-[700px]">
-        <div className="lg:w-1/2 p-8">
+      <div className="flex rounded-lg bg-white shadow-lg h-[450px] md:w-[700px] w-[448px]">
+        <div className="md:w-1/2 p-8">
           <h2 className="text-xl font-bold text-center mb-4">Đăng nhập</h2>
           <form onSubmit={handleSubmit}>
             <input
@@ -77,7 +77,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
-        <div className="lg:w-1/2 bg-[#D6E4E5] rounded-r-lg flex items-center justify-center lg:flex md:flex ">
+        <div className="md:w-1/2 bg-[#D6E4E5] rounded-r-lg items-center justify-center  md:flex hidden">
           <img
             src="https://cdni.iconscout.com/illustration/premium/thumb/login-page-4468581-3783954.png"
             alt=""

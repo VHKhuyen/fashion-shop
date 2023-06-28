@@ -3,10 +3,10 @@ import "../../assets/styles/style.css";
 import { formattedUnitPrice } from "../../utils/formatter";
 
 const NewArrivalCard = ({ data, bg }) => {
-  const { product_id: id, name, unit_price: price, images } = data;
+  const { alias, name, price, featured_image: image } = data;
 
   return (
-    <Link to={`/products/${id}`}>
+    <Link to={`/products/${alias}`}>
       <div
         className="max-w-full h-full flex justify-between items-center rounded px-6 py-4 lg:my-2 product"
         style={{ backgroundColor: `${bg}` }}
@@ -19,7 +19,7 @@ const NewArrivalCard = ({ data, bg }) => {
         </div>
         <img
           className="lg:h-[100px] md:h-[80px] h-[100px] rounded-md productImg"
-          src={images[0].imgUrl}
+          src={image}
           alt=""
         />
       </div>

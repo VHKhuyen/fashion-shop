@@ -2,7 +2,7 @@ import { HeroSlider, NewArrivalSlider } from "../../components";
 
 const Hero = () => {
   return (
-    <section className="flex lg:flex-row justify-between flex-col max-w-full gap-6">
+    <section className="flex lg:flex-row justify-start flex-col max-w-full gap-6">
       <div className="lg:w-2/3">
         <HeroSlider />
       </div>

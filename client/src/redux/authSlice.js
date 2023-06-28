@@ -20,6 +20,11 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchRegister.fulfilled, (state, action) => {
+        state.currentUser = action.payload.metadata.newUser;
+        localStorage.setItem(
+          "user",
+          JSON.stringify(action.payload.metadata.newUser)
+        );
         state.loading = false;
       })
       .addCase(fetchRegister.rejected, (state, action) => {

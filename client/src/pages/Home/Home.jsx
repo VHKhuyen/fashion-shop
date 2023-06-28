@@ -4,6 +4,7 @@ import Features from "./Features";
 import Promotions from "./Promotions";
 import HotDeals from "./HotDeals";
 import Popular from "./Popular";
+import { Subscribe } from "../../components";
 
 const Home = () => {
   useTitle("Home");
@@ -14,6 +15,7 @@ const Home = () => {
       <HotDeals />
       <Popular />
       <Promotions />
+      <Subscribe />
     </>
   );
 };

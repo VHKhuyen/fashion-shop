@@ -7,8 +7,8 @@ const Popular = () => {
   const [products, setProducts] = useState([]);
   const fetchProducts = async () => {
     try {
-      const response = await requestShop.get("/products");
-      setProducts(response.data);
+      const response = await requestShop.get("/products/popular");
+      setProducts(response.data.metadata);
     } catch (error) {
       console.error(error);
     }
@@ -20,7 +20,7 @@ const Popular = () => {
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-4">
         <div className="flex items-center">
           <lord-icon
             src="https://cdn.lordicon.com/xhbsnkyp.json"

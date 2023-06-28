@@ -42,8 +42,8 @@ const Register = () => {
 
   return (
     <section className="w-full flex items-center justify-center">
-      <div className="flex flex-row-reverse rounded-lg bg-white shadow-lg h-[450px] w-[700px]">
-        <div className="lg:w-1/2 p-8">
+      <div className="flex flex-row-reverse rounded-lg bg-white shadow-lg h-[450px] md:w-[700px] w-[448px]">
+        <div className="md:w-1/2 p-8">
           <h2 className="text-xl font-bold text-center mb-4">Đăng ký</h2>
           <form onSubmit={handleSubmit}>
             <input
@@ -84,7 +84,7 @@ const Register = () => {
             </Link>
           </p>
         </div>
-        <div className="lg:w-1/2 bg-[#B5D5C5] rounded-l-lg flex items-center justify-center lg:flex md:flex ">
+        <div className="md:w-1/2 bg-[#B5D5C5] rounded-l-lg items-center justify-center md:flex hidden">
           <img
             src="https://cdni.iconscout.com/illustration/premium/thumb/login-3305943-2757111.png"
             alt=""

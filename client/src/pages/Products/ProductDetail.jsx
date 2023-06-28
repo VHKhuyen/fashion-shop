@@ -26,7 +26,7 @@ const ProductDetail = () => {
   const [selectedTab, setSelectedTab] = useState(1);
 
   const handleChangeImage = (id) => {
-    const selectedImage = product.images.find((item) => item.img_id === id);
+    const selectedImage = product.images.find((item) => item.id === id);
     if (selectedImage) {
       setImages(selectedImage);
     }
@@ -38,10 +38,10 @@ const ProductDetail = () => {
     } else {
       dispatch(
         addItem({
-          id: product.product_id,
+          id: product.id,
           name: product.name,
-          price: product.unit_price,
-          image: images.imgUrl,
+          price: product.price,
+          image: images.src,
           color: images.color,
           size,
           quantity,
@@ -51,12 +51,12 @@ const ProductDetail = () => {
         (t) => (
           <AddedCard
             {...{
-              id: product.product_id,
+              id: product.id,
               name: product.name,
-              image: images.imgUrl,
+              image: images.src,
               color: images.color,
               size,
-              price: product.unit_price,
+              price: product.price,
               quantity,
             }}
             t={t}
@@ -80,21 +80,23 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    const fetchProductSame = async (slug) => {
+      const response = await requestShop.get("/products/category", {
+        params: {
+          type: slug,
+        },
+      });
+      setSameProducts(response.data.metadata);
+    };
+
     const fetchProduct = async () => {
       const response = await requestShop.get(`/products/${id}`);
-      setProduct(response.data);
-      setImages(response.data.images[0]);
+      setProduct(response.data.metadata);
+      setImages(response.data.metadata.images[0]);
+      fetchProductSame(response.data.metadata.category.slug);
     };
     fetchProduct();
   }, [id]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await requestShop.get("/products");
-      setSameProducts(response.data);
-    };
-    fetchProducts();
-  }, []);
 
   return (
     <div>
@@ -103,8 +105,8 @@ const ProductDetail = () => {
           {/* Product Image */}
           <div className="lg:w-1/2 max-h-[600px] flex justify-center rounded-xl">
             <img
-              src={images?.imgUrl}
-              alt=""
+              src={images?.src}
+              alt="Image"
               className="w-auto object-cover max-h-[600px] rounded-xl"
             />
           </div>
@@ -156,14 +158,14 @@ const ProductDetail = () => {
                 </h2>
                 <div className="flex gap-3">
                   {product.images.map((img) => (
-                    <div key={img.img_id} className="avatar">
+                    <div key={img.id} className="avatar">
                       <div
-                        onClick={() => handleChangeImage(img.img_id)}
+                        onClick={() => handleChangeImage(img.id)}
                         className={`cursor-pointer ${
-                          img.img_id === images.img_id && "border-primary"
+                          img.id === images.id && "border-primary"
                         } border-[2px]   hover:border-primary w-10 mr-3 rounded`}
                       >
-                        <img src={img.imgUrl} />
+                        <img src={img.src} />
                       </div>
                     </div>
                   ))}
@@ -275,24 +277,21 @@ const ProductDetail = () => {
       ) : (
         <Loading />
       )}
-      {/* SIMILAR PRODUCTS */}
 
+      {/* SIMILAR PRODUCTS */}
       {sameProducts ? (
         <section className="my-32">
           <h2 className="text-2xl font-bold textGradient mb-8">
             Gợi ý cho bạn
           </h2>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5">
-            {sameProducts
-              // ?.filter((p) => p.category === category)
-              // .slice(0, 4)
-              .map((item, index) => (
-                <ProductCard key={index} data={item} />
-              ))}
+            {sameProducts.map((item) => (
+              <ProductCard key={item.id} data={item} />
+            ))}
           </div>
         </section>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )}
     </div>
   );

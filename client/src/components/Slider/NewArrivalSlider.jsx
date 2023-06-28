@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useState, useEffect } from "react";
-import { NewArrivalCard } from "../../components";
+import { Loading, NewArrivalCard } from "../../components";
 import { NextArrow, PrevArrow } from "./ArrowSlider";
 import { requestShop } from "../../utils/httpRequest";
 
@@ -50,25 +50,31 @@ const NewArrivalSlider = () => {
   };
 
   const [products, setProducts] = useState([]);
-  const fetchProducts = async () => {
-    try {
-      const response = await requestShop.get("/products");
-      setProducts(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await requestShop.get("/products/new");
+        setProducts(response.data.metadata);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchProducts();
   }, []);
 
   return (
-    <Slider {...settings}>
-      {products?.map((item, index) => (
-        <NewArrivalCard key={index} bg={productsBg[index]} data={item} />
-      ))}
-    </Slider>
+    <div>
+      {products.length ? (
+        <Slider {...settings}>
+          {products.map((item, index) => (
+            <NewArrivalCard key={index} bg={productsBg[index]} data={item} />
+          ))}
+        </Slider>
+      ) : (
+        <Loading />
+      )}
+    </div>
   );
 };
 export default NewArrivalSlider;

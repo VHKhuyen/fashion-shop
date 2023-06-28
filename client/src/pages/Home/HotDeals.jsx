@@ -5,22 +5,22 @@ import { requestShop } from "../../utils/httpRequest";
 
 const HotDeals = () => {
   const [products, setProducts] = useState([]);
-  const fetchProducts = async () => {
-    try {
-      const response = await requestShop.get("/products");
-      setProducts(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await requestShop.get("/products/discount");
+        setProducts(response.data.metadata);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchProducts();
   }, []);
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-4">
         <div className="flex items-center">
           <lord-icon
             src="https://cdn.lordicon.com/tqywkdcz.json"
