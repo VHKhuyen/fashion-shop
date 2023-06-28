@@ -36,7 +36,7 @@ const User = sequelize.define(
       defaultValue: 0,
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 const UserAddress = sequelize.define(
@@ -95,7 +95,7 @@ const UserAddress = sequelize.define(
       defaultValue: false,
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 module.exports = { User, UserAddress };

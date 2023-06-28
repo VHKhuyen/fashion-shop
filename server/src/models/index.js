@@ -21,7 +21,7 @@ const { Discount } = require("./discount.model");
 KeyToken.belongsTo(User, { foreignKey: "user_id" });
 
 CartItem.belongsTo(Cart, { foreignKey: "cart_id" });
-CartItem.belongsTo(Product, { foreignKey: "product_id", as: "products" });
+CartItem.belongsTo(Product, { foreignKey: "product_id" });
 
 Cart.belongsTo(User, { foreignKey: "cart_user_id" });
 Cart.hasMany(CartItem, { foreignKey: "cart_id" });
@@ -30,6 +30,7 @@ OrderItem.belongsTo(Order, { foreignKey: "order_id" });
 OrderItem.belongsTo(Product, { foreignKey: "product_id" });
 
 Order.belongsTo(User, { foreignKey: "user_id" });
+Order.hasMany(OrderItem, { foreignKey: "order_id", as: "order_items" });
 
 ProductImg.belongsTo(Product, { foreignKey: "product_id" });
 Product.hasMany(ProductImg, { foreignKey: "product_id", as: "images" });

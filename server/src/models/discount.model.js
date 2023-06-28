@@ -58,7 +58,7 @@ const Discount = sequelize.define(
       defaultValue: "all",
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 module.exports = { Discount };

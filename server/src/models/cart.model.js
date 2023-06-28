@@ -23,7 +23,7 @@ const Cart = sequelize.define(
       },
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 const CartItem = sequelize.define(
@@ -60,7 +60,7 @@ const CartItem = sequelize.define(
       allowNull: false,
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 module.exports = { Cart, CartItem };

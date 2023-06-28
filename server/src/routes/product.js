@@ -6,14 +6,15 @@ const { authentication } = require("../auth/authUtils");
 
 router
   .get("/", asyncHandler(ProductController.getAllProduct))
-  .get("/:id", asyncHandler(ProductController.getById))
-  .get("/:category", asyncHandler(ProductController.getByCategory))
-  .post("/", asyncHandler(ProductController.searchProduct));
+  .get("/new", asyncHandler(ProductController.getProductNew))
+  .get("/popular", asyncHandler(ProductController.getProductPopular))
+  .get("/discount", asyncHandler(ProductController.getProductDiscount))
+  .post("/search", asyncHandler(ProductController.searchProduct))
+  .get("/category", asyncHandler(ProductController.getByCategory))
+  .get("/:alias", asyncHandler(ProductController.getByAlias));
 
 //check authentication
-router.use(authentication);
-router
-  .post("/", asyncHandler(ProductController.createProduct))
-  .put("/:id", asyncHandler(ProductController.updateProduct))
-  .delete("/:id", asyncHandler(ProductController.deleteProduct));
+// router.use(authentication);
+
+router.post("/", asyncHandler(ProductController.createProduct));
 module.exports = router;

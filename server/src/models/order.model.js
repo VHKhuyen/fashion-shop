@@ -4,30 +4,38 @@ const { DataTypes } = require("sequelize");
 const OrderItem = sequelize.define(
   "order_item",
   {
-    order_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
+    },
+    order_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "orders",
+        key: "order_id",
+      },
     },
     product_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      references: {
+        model: "products",
+        key: "id",
+      },
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    unit_price: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-    },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 const Order = sequelize.define(
-  "orders",
+  "order",
   {
     order_id: {
       type: DataTypes.INTEGER,
@@ -37,11 +45,44 @@ const Order = sequelize.define(
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "users",
         key: "user_id",
       },
+    },
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.STRING(50),
+      defaultValue: true,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    district: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "VN",
+    },
+    note: {
+      type: DataTypes.STRING(1000),
+      allowNull: true,
     },
     order_status: {
       type: DataTypes.STRING,
@@ -54,7 +95,7 @@ const Order = sequelize.define(
       allowNull: false,
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
+  { timestamps: true }
 );
 
 module.exports = { Order, OrderItem };
