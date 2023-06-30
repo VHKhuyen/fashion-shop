@@ -5,10 +5,11 @@ import { decrQuantity, incrQuantity } from "../../redux/cartSlice";
 import { open } from "../../redux/modalConfirmSlice";
 import { cartSelector } from "../../redux/selector";
 import "../../assets/styles/cart.css";
+import { Link } from "react-router-dom";
 
 const CartProductCard = ({ data }) => {
   const { cartItems } = useSelector(cartSelector);
-  const { image, name, size, color, price, quantity } = data;
+  const { image, name, size, color, price, quantity, alias } = data;
 
   const dispatch = useDispatch();
 
@@ -30,11 +31,16 @@ const CartProductCard = ({ data }) => {
   return (
     <div className="flex justify-between items-center py-2 px-3 bg-[#F8F4EA] rounded-lg my-2">
       <div className="flex gap-4">
-        <img src={image} alt="" className="h-24 rounded-md" />
+        <Link to={`/products/${alias}`}>
+          <img src={image} alt="" className="h-24 rounded-md" />
+        </Link>
         <div>
-          <h3 className="font-semibold text-[14px] capitalize leading-5">
-            {name}
-          </h3>
+          <Link to={`/products/${alias}`}>
+            <h3 className="hover:text-primary font-semibold text-[14px] capitalize leading-5">
+              {name}
+            </h3>
+          </Link>
+
           <p>{formattedUnitPrice(price)}</p>
           <span>{color} / </span>
           <span>{size}</span>

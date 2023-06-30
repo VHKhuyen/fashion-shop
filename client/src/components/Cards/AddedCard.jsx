@@ -29,7 +29,7 @@ const AddedCard = ({ name, image, size, color, price, t }) => {
           onClick={() => toast.dismiss(t.id)}
           className="mt-4 btn btn-primary opacity-80 btn-wide btn-sm text-white"
         >
-          Go to cart
+          Xem giỏ hàng
         </button>
       </Link>
     </div>

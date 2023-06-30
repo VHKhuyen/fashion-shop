@@ -8,4 +8,5 @@ export { default as CartPage } from "./CartPage";
 export { default as Login } from "./Auth/Login";
 export { default as Register } from "./Auth/Register";
 export { default as Checkout } from "./Checkout";
+export { default as Ordered } from "./Ordered";
 // export { default as ErrorPage } from "./ErrorPage";

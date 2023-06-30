@@ -125,7 +125,7 @@ const Navbar = () => {
               className="hidden lg:flex hover:text-primary items-center gap-1 mx-4 py-2"
             >
               <div className="indicator">
-                <span className="indicator-item badge badge-primary text-xs font-semibold px-[6px]">
+                <span className="indicator-item badge badge-primary text-xs text-white font-semibold px-[6px]">
                   {calculateTotalQty(cartItems)}
                 </span>
                 <lord-icon

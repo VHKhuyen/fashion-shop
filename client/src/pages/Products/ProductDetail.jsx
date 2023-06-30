@@ -40,6 +40,7 @@ const ProductDetail = () => {
         addItem({
           id: product.id,
           name: product.name,
+          alias: product.alias,
           price: product.price,
           image: images.src,
           color: images.color,
@@ -53,6 +54,7 @@ const ProductDetail = () => {
             {...{
               id: product.id,
               name: product.name,
+              alias: product.alias,
               image: images.src,
               color: images.color,
               size,

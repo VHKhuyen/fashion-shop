@@ -29,8 +29,6 @@ const Cart = () => {
     dispatch(incrQuantity({ id: item.id, color: item.color, size: item.size }));
   };
 
-  const handleCheckout = (item) => {};
-
   return (
     <>
       <SectionHeader>Giỏ hàng</SectionHeader>
@@ -53,24 +51,24 @@ const Cart = () => {
                       <div className="flex items-center">
                         <Link
                           className="w-20 h-28 flex items-center justify-center"
-                          to={`/products/${item.id}`}
+                          to={`/products/${item.alias}`}
                         >
                           <img
                             className="rounded-[4px] w-full h-full "
                             src={item.image}
-                            alt="Avatar Tailwind CSS Component"
+                            alt="Avatar"
                           />
                         </Link>
                         <div className="ml-3">
                           <Link
                             className="whitespace-break-spaces font-semibold hover:text-primary transition capitalize text-sm sm:text-base"
-                            to={`/products/${item.id}`}
+                            to={`/products/${item.alias}`}
                           >
                             {item.name}
                           </Link>
                           <div className="text-sm  sm:mt-5">
                             <p>Size: {item.size}</p>
-                            <p>Colors: {item.color}</p>
+                            <p>Color: {item.color}</p>
                             <p className="md:hidden">
                               {formattedUnitPrice(item.price)}
                             </p>
@@ -159,12 +157,7 @@ const Cart = () => {
               </h2>
             </div>
             <Link to="/checkout">
-              <PrimaryButton
-                className="w-full mt-12"
-                eventHandler={handleCheckout}
-              >
-                Thanh toán
-              </PrimaryButton>
+              <PrimaryButton className="w-full mt-12">Thanh toán</PrimaryButton>
             </Link>
           </div>
         </div>

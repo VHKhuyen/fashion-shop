@@ -9,12 +9,13 @@ class OrderController {
       name,
       phone,
       address,
+      ward,
       district,
-      city,
-      state,
+      province,
       country,
       note,
-      total,
+      totalPrice,
+      payment,
       orderItems,
     } = req.body;
 
@@ -23,12 +24,13 @@ class OrderController {
       name,
       phone,
       address,
+      ward,
       district,
-      city,
-      state,
+      province,
       country,
       note,
-      total,
+      totalPrice,
+      payment,
     });
 
     for (const orderItem of orderItems) {
@@ -36,6 +38,8 @@ class OrderController {
         order_id: newOrder.order_id,
         product_id: orderItem.id,
         quantity: orderItem.quantity,
+        color: orderItem.color,
+        size: orderItem.size,
       });
     }
 

@@ -30,6 +30,14 @@ const OrderItem = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    color: {
+      type: DataTypes.STRING(45),
+      allowNull: false,
+    },
+    size: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
   },
   { timestamps: true }
 );
@@ -53,31 +61,31 @@ const Order = sequelize.define(
     },
     name: {
       type: DataTypes.STRING(50),
-      allowNull: true,
+      allowNull: false,
     },
     phone: {
       type: DataTypes.STRING(50),
-      defaultValue: true,
+      defaultValue: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+    },
+    ward: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     district: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    city: {
+    province: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    state: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       defaultValue: "VN",
     },
     note: {
@@ -90,8 +98,12 @@ const Order = sequelize.define(
       values: ["pending", "confirmed", "shipped", "canceled", "delivered"],
       defaultValue: "pending",
     },
-    total: {
+    totalPrice: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    payment: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },

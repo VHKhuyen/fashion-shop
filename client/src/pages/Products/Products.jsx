@@ -22,17 +22,16 @@ const Products = () => {
     }
   };
 
-  const fetchProducts = async () => {
-    try {
-      const response = await requestShop.get("/products");
-      setProducts(response.data.metadata);
-      setSelectedProduct(response.data.metadata);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await requestShop.get("/products");
+        setProducts(response.data.metadata);
+        setSelectedProduct(response.data.metadata);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchProducts();
   }, []);
 

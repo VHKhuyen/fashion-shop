@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { formattedUnitPrice } from "../../utils/formatter";
 
 const SearchProductCard = (props) => {
-  const { product_id, name, images, unit_price, setSearchValue } = props;
+  const { alias, name, images, unit_price, setSearchValue } = props;
 
   return (
-    <Link to={`/products/${product_id}`}>
+    <Link to={`/products/${alias}`}>
       <div
         className="bg-base-100 flex my-2 hover:bg-slate-100 transition"
         onClick={() => setSearchValue("")}
