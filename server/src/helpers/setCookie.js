@@ -4,14 +4,14 @@ const refreshTokenMaxAge = 7 * 24 * 60 * 60 * 1000;
 const setCookie = (res, accessToken, refreshToken) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    domain: "https://jenta.site/",
+    domain: "jenta.site",
     secure: true,
     maxAge: accessTokenMaxAge,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    domain: "https://jenta.site/",
+    domain: "jenta.site",
     secure: true,
     maxAge: refreshTokenMaxAge,
   });

@@ -130,8 +130,8 @@ class AuthController {
       where: { user_id: req.keyStore.user_id },
     });
 
-    res.clearCookie("accessToken", { domain: "https://jenta.site" });
-    res.clearCookie("refreshToken", { domain: "https://jenta.site" });
+    res.clearCookie("accessToken", { domain: "jenta.site" });
+    res.clearCookie("refreshToken", { domain: "jenta.site" });
 
     new Ok({
       message: "Logout success!",
