@@ -5,8 +5,9 @@ const { Ok } = require("../core/success.response");
 class ProductController {
   async searchProduct(req, res) {
     const { keySearch } = req.body;
+    console.log(req.body);
     const products = await Product.findAll({
-      where: Sequelize.literal(`MATCH (name, alias) AGAINST (:keySearch)`),
+      where: Sequelize.literal(`MATCH (name) AGAINST (:keySearch)`),
       replacements: { keySearch },
     });
 

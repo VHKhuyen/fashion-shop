@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { formattedUnitPrice } from "../../utils/formatter";
 
 const SearchProductCard = (props) => {
-  const { alias, name, images, unit_price, setSearchValue } = props;
+  const { alias, name, featured_image, price, setSearchValue } = props;
 
   return (
     <Link to={`/products/${alias}`}>
@@ -13,14 +13,14 @@ const SearchProductCard = (props) => {
         <div className="w-12">
           <img
             className="rounded-[4px] w-full h-full"
-            src={images[0].imgUrl}
+            src={featured_image}
             alt="Avatar"
           />
         </div>
         <div className="ml-2">
           <div className="font-semibold transition text-sm">{name}</div>
           <div className="text-sm mt-2">
-            <p>{formattedUnitPrice(unit_price)}</p>
+            <p>{formattedUnitPrice(price)}</p>
           </div>
         </div>
       </div>

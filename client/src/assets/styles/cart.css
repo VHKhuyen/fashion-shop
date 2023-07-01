@@ -1,14 +1,17 @@
-.cart::-webkit-scrollbar {
+.cart::-webkit-scrollbar,
+.search::-webkit-scrollbar {
   border-radius: 0;
   width: 8px;
 }
 
-.cart::-webkit-scrollbar-thumb {
+.cart::-webkit-scrollbar-thumb,
+.search::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
 
-.cart::-webkit-scrollbar-track {
+.cart::-webkit-scrollbar-track,
+.search::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 0;
 }

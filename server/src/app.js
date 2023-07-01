@@ -4,13 +4,12 @@ const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 const routes = require("./routes");
 const app = express();
 
-if (!process.env.NODE_ENV === "production") {
-  const morgan = require("morgan");
-  app.use(morgan("dev"));
-}
+app.use(morgan("dev"));
+
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());

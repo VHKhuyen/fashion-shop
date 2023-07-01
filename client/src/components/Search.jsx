@@ -25,7 +25,7 @@ const Search = () => {
     }
     const controller = new AbortController();
     const fetchData = async () => {
-      const response = await requestShop.post("/products", {
+      const response = await requestShop.post("/products/search", {
         keySearch: searchValue,
       });
       if (response) {
@@ -62,14 +62,14 @@ const Search = () => {
         </div>
         <div
           tabIndex={0}
-          className={`
+          className={`search max-h-[320px] overflow-y-auto
             dropdown-content ${
               !searchValue && "hidden"
             } rounded-md w-full p-2 shadow bg-base-100`}
         >
           {searchResult.length > 0 && searchValue ? (
             searchResult?.map((item) => (
-              <div key={item.product_id}>
+              <div key={item.id}>
                 <SearchProductCard {...item} setSearchValue={setSearchValue} />
               </div>
             ))
